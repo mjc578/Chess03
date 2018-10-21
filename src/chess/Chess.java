@@ -6,7 +6,7 @@ public class Chess {
 		// TODO Auto-generated method stub
 		System.out.println("Wow chess project");
 		System.out.println("Wow overload");
-		System.out.println("i like beans");
+		System.out.println("i like all time low");
 	}
 
 }
