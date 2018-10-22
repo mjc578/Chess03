@@ -1,12 +1,30 @@
 package chess;
 
+import java.util.Scanner;
+
 public class Chess {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		System.out.println("Wow chess project");
-		System.out.println("Wow overload");
-		System.out.println("i like all time low");
+	
+		Scanner sc = new Scanner(System.in);
+		String input = sc.nextLine();
+		
+		if (input.equals("resign")) {
+			//TODO: print black/white wins
+		}
+		else if (input.equals("draw?")) {
+			//TODO: 
+		}
+		else if (input.equals("draw")) {
+			//TODO: 
+		}
+		else {
+			String oldPosition = input.substring(0,2);
+			String newPosition = input.substring(3,5);
+			System.out.println(oldPosition + " " + newPosition);
+		}
+		sc.close();
+		
 	}
 
 }
