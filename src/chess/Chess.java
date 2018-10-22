@@ -5,24 +5,33 @@ import java.util.Scanner;
 public class Chess {
 
 	public static void main(String[] args) {
+		
+		//just an idea, set states based on user input and conditions of game
+		boolean blackTurn = true;
+		boolean whiteTurn = false;
+		boolean drawRequested = false;
+		boolean check = false;
+		boolean checkmate = false;
+		boolean resign = false;
 	
 		Scanner sc = new Scanner(System.in);
-		String input = sc.nextLine();
+		String input;
 		
-		if (input.equals("resign")) {
-			//TODO: print black/white wins
+		while(sc.hasNextLine()) {
+			
+			input = sc.nextLine();
+			
+			//if player entered reisgn, break, then check after loop who's turn it was
+			if(input.equals("resign")) {
+				resign = true;
+				break;
+			}
+			
+			
 		}
-		else if (input.equals("draw?")) {
-			//TODO: 
-		}
-		else if (input.equals("draw")) {
-			//TODO: 
-		}
-		else {
-			String oldPosition = input.substring(0,2);
-			String newPosition = input.substring(3,5);
-			System.out.println(oldPosition + " " + newPosition);
-		}
+		
+		System.out.println('a' - 96);
+		
 		sc.close();
 		
 	}

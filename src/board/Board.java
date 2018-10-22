@@ -9,4 +9,8 @@ public class Board {
 	public Board() {
 		this.board = new Pieces[8][8];
 	}
+	
+	public void printBoard() {
+		
+	}
 }

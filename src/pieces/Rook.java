@@ -1,5 +1,5 @@
 package pieces;
 
-public class Rook extends Pieces{
+public class Rook {
 
 }

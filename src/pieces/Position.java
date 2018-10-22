@@ -2,15 +2,15 @@ package pieces;
 
 public class Position {
 	
-	private char file;
+	private int file;
 	private int rank;
 
 	public Position(char file, int rank) {
-		this.file = file;
+		this.file = file - 96;
 		this.rank = rank;
 	}
 	
-	public char getFile() {
+	public int getFile() {
 		return file;
 	}
 	
@@ -33,4 +33,5 @@ public class Position {
 		Position p = (Position) o;
 		return file == p.file && rank ==  p.rank;
 	}
+	
 }
