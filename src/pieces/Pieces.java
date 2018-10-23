@@ -16,16 +16,13 @@ public abstract class Pieces {
 		return currentPosition;
 	}
 	
-	public abstract boolean isValidMove(Position np);
-	
-	public boolean movePiece(Position p1, Position p2) {
-		
-		if(!isValidMove(p2)) {
-			return false;
+	public boolean isValidMove(Position np) {
+		if(np.getFile() < 8 && np.getFile() >= 0 && np.getRank() < 8 && np.getRank() >= 0) {
+			return true;
 		}
-		
-		//look through board and see if there is a piece there...
-		
-		return true;
+		return false;
 	}
+	
+	public abstract boolean isValidMoveSpecific(Position np);
+	
 }

@@ -7,14 +7,13 @@ public class Bishop extends Pieces{
 	}
 
 	@Override
-	public boolean isValidMove(Position np) {
+	public boolean isValidMoveSpecific(Position np) {
+		if(!super.isValidMove(np)) {
+			return false;
+		}
 		if(Math.abs(np.getFile() - this.getPosition().getFile()) == Math.abs(np.getRank() - this.getPosition().getRank())) {
 			return true;
 		}
-		else {
-			return false;
-		}
+		return false;	
 	}
-	
-	
 }
