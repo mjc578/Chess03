@@ -2,8 +2,19 @@ package pieces;
 
 public abstract class Pieces {
 	
-	String color;
-	Position currentPosition;
+	private String name;
+	private String color;
+	private Position currentPosition;
+	
+	public Pieces(String name, String color, Position currentPosition) {
+		this.name = name;
+		this.color = color;
+		this.currentPosition = currentPosition;
+	}
+	
+	public Position getPosition() {
+		return currentPosition;
+	}
 	
 	public abstract boolean isValidMove(Position np);
 	
@@ -17,8 +28,4 @@ public abstract class Pieces {
 		
 		return true;
 	}
-	
-	
-	
-	
 }
