@@ -1,10 +1,15 @@
 package chess;
 
 import java.util.Scanner;
+import board.Board;
 
 public class Chess {
 
 	public static void main(String[] args) {
+		
+		//make the board and print it out, TODO: populate first?
+		Board board = new Board();
+		board.printBoard();
 		
 		//just an idea, set states based on user input and conditions of game
 		boolean blackTurn = true;
@@ -29,9 +34,7 @@ public class Chess {
 			
 			
 		}
-		
-		System.out.println('a' - 96);
-		
+				
 		sc.close();
 		
 	}
