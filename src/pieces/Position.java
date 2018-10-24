@@ -6,7 +6,7 @@ public class Position {
 	private int rank;
 
 	public Position(char file, int rank) {
-		this.file = file - 96;
+		this.file = file - 97;
 		this.rank = rank;
 	}
 	

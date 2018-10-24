@@ -17,10 +17,13 @@ public class Rook extends Pieces{
 	}
 
 	@Override
-	public boolean isValidMoveSpecific(Position np) {
-		if(!isValidMove(np)) {
+	public boolean isValidMove(Position np) {
+		
+		//piece may not leave the confines of the board
+		if(!super.isValidMove(np)) {
 			return false;
 		}
+		//rook can only move through a file or through a rank
 		if(np.getFile() == this.getPosition().getFile() || np.getRank() == this.getPosition().getRank()) {
 			return true;
 		}

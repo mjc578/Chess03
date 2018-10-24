@@ -7,7 +7,7 @@ public class Bishop extends Pieces{
 	}
 
 	@Override
-	public boolean isValidMoveSpecific(Position np) {
+	public boolean isValidMove(Position np) {
 		if(!super.isValidMove(np)) {
 			return false;
 		}

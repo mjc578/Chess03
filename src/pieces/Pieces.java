@@ -21,8 +21,10 @@ public abstract class Pieces {
 			return true;
 		}
 		return false;
+	}	
+	
+	@Override
+	public String toString() {
+		return "" + color.charAt(0) + name.charAt(0);
 	}
-	
-	public abstract boolean isValidMoveSpecific(Position np);
-	
 }
