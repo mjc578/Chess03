@@ -13,8 +13,10 @@ public class Pawn extends Pieces{
 		//Pawns can only move forward, on first move, can move to spaces ahead, otherwise only one space, TAKES PIECES DIAGONALLY ONLY
 		//TODO: when board calls this method, it could pass a boolean telling if there is a piece in the spot it wants to go to??? seems like good idea
 		//movement will be dependent on the color (black moves down white moves up)
-		
-		
+		//move must remain in confines of the board, does not depend on color
+		if(!isValidMove(np)) {
+			return false;
+		}
 		
 		if (this.getColor().equals("white")){
 			if(isOccupied == true) {
@@ -31,7 +33,6 @@ public class Pawn extends Pieces{
 						return true;
 				}
 			}
-			return false;
 		}
 		if (this.getColor().equals("black")){
 			if(isOccupied == true) {
@@ -48,28 +49,7 @@ public class Pawn extends Pieces{
 						return true;
 				}
 			}
-			return false;
 		}
-			
-			
-			
-			
-			
-			
-			
-			
-			
-	
-		
-		
-		//move must remain in confines of the board, does not depend on color
-		if(!isValidMove(np)) {
-			return false;
-		}
-		
 		return false;
 	}
-	
-	
-
 }
