@@ -7,7 +7,7 @@ public class Position {
 
 	public Position(char file, int rank) {
 		this.file = file - 97;
-		this.rank = rank;
+		this.rank = rank - 1;
 	}
 	
 	public int getFile() {
