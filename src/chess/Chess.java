@@ -48,7 +48,7 @@ public class Chess {
 		Position p1 = new Position('d', 1);		
 		Position p2 = new Position('d', 4);
 		boolean move = board.movePiece(p1, p2);
-		 
+		
 		if(move) {
 			board.printBoard();
 		}
