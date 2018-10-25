@@ -16,6 +16,10 @@ public abstract class Pieces {
 		return currentPosition;
 	}
 	
+	public String getColor() {
+		return color;
+	}
+	
 	public boolean isValidMove(Position np) {
 		if(np.getFile() < 8 && np.getFile() >= 0 && np.getRank() < 8 && np.getRank() >= 0) {
 			return true;
