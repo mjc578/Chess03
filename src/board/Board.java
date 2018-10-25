@@ -52,32 +52,32 @@ public class Board {
 	}
 	//populates board with pieces at starting positions
 	public void populate() {
-		board[0][7] = new Rook("Rook", "black", new Position('a', 7));
-		board[1][7] = new Knight("Night", "black", new Position('b', 7));
-		board[2][7] = new Bishop("Bishop", "black", new Position('c', 7));
-		board[3][7] = new Queen("Queen", "black", new Position('d', 7));
-		board[4][7] = new King("King", "black", new Position('e', 7));
-		board[5][7] = new Bishop("Bishop", "black", new Position('f', 7));
-		board[6][7] = new Knight("Night", "black", new Position('g', 7));
-		board[7][7] = new Rook("Rook", "black", new Position('h', 7));
+		board[0][7] = new Rook("Rook", "black", new Position('a', 8));
+		board[1][7] = new Knight("Night", "black", new Position('b', 8));
+		board[2][7] = new Bishop("Bishop", "black", new Position('c', 8));
+		board[3][7] = new Queen("Queen", "black", new Position('d', 8));
+		board[4][7] = new King("King", "black", new Position('e', 8));
+		board[5][7] = new Bishop("Bishop", "black", new Position('f', 8));
+		board[6][7] = new Knight("Night", "black", new Position('g', 8));
+		board[7][7] = new Rook("Rook", "black", new Position('h', 8));
 		
 		for(int i = 0; i < board.length; i++) {
-			board[i][6] = new Pawn("pawn", "black", new Position(Character.toChars(i + 97)[0], 6));
+			board[i][6] = new Pawn("pawn", "black", new Position(Character.toChars(i + 97)[0], 7));
 		}
 		
 		//16 whites:
 		
-		board[0][0] = new Rook("Rook", "white", new Position('a', 7));
-		board[1][0] = new Knight("Night", "white", new Position('b', 7));
-		board[2][0] = new Bishop("Bishop", "white", new Position('c', 7));
-		board[3][0] = new Queen("Queen", "white", new Position('d', 7));
-		board[4][0] = new King("King", "white", new Position('e', 7));
-		board[5][0] = new Bishop("Bishop", "white", new Position('f', 7));
-		board[6][0] = new Knight("Night", "white", new Position('g', 7));
-		board[7][0] = new Rook("Rook", "white", new Position('h', 7));
+		board[0][0] = new Rook("Rook", "white", new Position('a', 1));
+		board[1][0] = new Knight("Night", "white", new Position('b', 1));
+		board[2][0] = new Bishop("Bishop", "white", new Position('c', 1));
+		board[3][0] = new Queen("Queen", "white", new Position('d', 1));
+		board[4][0] = new King("King", "white", new Position('e', 1));
+		board[5][0] = new Bishop("Bishop", "white", new Position('f', 1));
+		board[6][0] = new Knight("Night", "white", new Position('g', 1));
+		board[7][0] = new Rook("Rook", "white", new Position('h', 1));
 		
 		for(int i = 0; i < board.length; i++) {
-			board[i][1] = new Pawn("pawn", "white", new Position(Character.toChars(i + 97)[0], 6));
+			board[i][1] = new Pawn("pawn", "white", new Position(Character.toChars(i + 97)[0], 2));
 		}
 	}
 	
