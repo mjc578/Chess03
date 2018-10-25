@@ -19,9 +19,6 @@ public class Rook extends Pieces{
 	@Override
 	public boolean isValidMove(Position np) {
 		
-		System.out.println("The new position this rook want to go to is: (" + np.getFile() + "," + np.getRank() + ").");
-		System.out.println("From the position " + this.getPosition().getFile() + "," + this.getPosition().getRank() + ").");
-		
 		//piece may not leave the confines of the board
 		if(!super.isValidMove(np)) {
 			return false;

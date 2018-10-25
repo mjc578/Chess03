@@ -45,9 +45,9 @@ public class Chess {
 		}*/
 		
 		//TODO: user should enter in numbers greater than zero so like subtract their thing by one or something
-		Position p1 = new Position('a', 1);		
+		Position p1 = new Position('g', 1);		
 		System.out.println(board.atPosition(p1));
-		Position p2 = new Position('a', 1);
+		Position p2 = new Position('h', 3);
 		boolean move = board.movePiece(p1, p2);
 		 
 		if(move) {
