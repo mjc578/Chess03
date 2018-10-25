@@ -6,8 +6,8 @@ public class Queen extends Pieces{
 		super(name, color, currentPosition);
 	}
 
-	@Override
 	//queen movement does not depend on if there is a piece in space it is moving to, unlike pawn
+	@Override
 	public boolean isValidMove(Position np) {
 		
 		//piece cannot leave the confines of the board, uses the super method instead of override
