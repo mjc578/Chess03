@@ -12,6 +12,10 @@ public abstract class Pieces {
 		this.currentPosition = currentPosition;
 	}
 	
+	public String getName() {
+		return name;
+	}
+	
 	public Position getPosition() {
 		return currentPosition;
 	}

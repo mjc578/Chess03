@@ -44,7 +44,14 @@ public class Chess {
 			
 		}*/
 		
-		//TODO: user should enter in numbers greater than zero so like subtract their thing by one or something
+		System.out.println("");
+		Position p1 = new Position('h', 1);
+		Position p2 = new Position('a', 8);
+		board.canMoveThrough(p1, p2);
+		System.out.println("");
+		//System.out.println("Position is: (" + p.getFile() + "," + p.getRank() + ")" );
+
+		/*
 		Position p1 = new Position('g', 1);		
 		System.out.println(board.atPosition(p1));
 		Position p2 = new Position('e', 2);
@@ -56,6 +63,7 @@ public class Chess {
 		else {
 			System.out.println("Illegal Move");
 		}
+		*/
 		sc.close();
 		
 	}
