@@ -45,10 +45,19 @@ public class Chess {
 		}*/
 		
 		System.out.println("");
-		Position p1 = new Position('h', 1);
-		Position p2 = new Position('a', 8);
-		board.canMoveThrough(p1, p2);
+		Position p1 = new Position('b', 2);
+		Position p2 = new Position('b', 4);
+		boolean can = board.atPosition(p1).move(p2, board);
+		if(can) {
+			System.out.println("The piece " + board.atPosition(p1) + " can move to position (" + p2.getFile() + "," + p2.getRank() + ").");
+			System.out.println("");
+			board.printBoard();
+		}
+		else {
+			System.out.println("Invalid Move");
+		}
 		System.out.println("");
+		
 		//System.out.println("Position is: (" + p.getFile() + "," + p.getRank() + ")" );
 
 		/*
