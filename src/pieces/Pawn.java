@@ -6,6 +6,7 @@ public class Pawn extends Pieces{
 	
 	private boolean firstMove = false;
 	private boolean justMovedTwo = false;
+	private boolean promotion = false;
 	private int count = 0;
 
 	public Pawn(String name, String color, Position currentPosition) {
@@ -30,6 +31,10 @@ public class Pawn extends Pieces{
 	
 	public void setCount(int count) {
 		this.count = count;
+	}
+	
+	public boolean getPromotion() {
+		return promotion;
 	}
 
 	@Override
@@ -57,7 +62,9 @@ public class Pawn extends Pieces{
 		if(this.getColor().equals("white")){
 			//we already checked if the destination spot has a teammate so this spot, if occupied, is guaranteed to have an enemy piece
 			//therefore, this is an attempted capture
-			
+			if (np.getRank() == 8) {
+				promotion = true;
+			}
 			//pawn is moving diagonally, therefore the pawn is either attempting en passant or capturing a diagonal enemy piece
 			if(Math.abs(np.getFile() - this.getPosition().getFile()) == 1 && np.getRank() - this.getPosition().getRank() == 1) {
 				//piece is attempting a capture, we already checked if where it wants to go is occupied by teammate, so it is guaranteed to be an enemy
@@ -110,6 +117,9 @@ public class Pawn extends Pieces{
 		}
 		//pawn is black, may only move down
 		else{
+			if (np.getRank() == 1) {
+				promotion = true;
+			}
 			if(Math.abs(np.getFile() - this.getPosition().getFile()) == 1 && np.getRank() - this.getPosition().getRank() == -1) {
 				if(board.atPosition(np) != null) {
 					if(!firstMove) {
