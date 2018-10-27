@@ -22,10 +22,9 @@ public class Knight extends Pieces{
 			return false;
 		}
 		
-		if(Math.abs(np.getFile() - this.getPosition().getFile()) == Math.abs(np.getRank() - this.getPosition().getRank())
-				|| (np.getFile() == this.getPosition().getFile() || np.getRank() == this.getPosition().getRank())
-				|| Math.abs(np.getFile() - this.getPosition().getFile()) > 2 
-				|| Math.abs(np.getRank() - this.getPosition().getRank()) > 2) {
+		
+		if (Math.abs(np.getFile() - this.getPosition().getFile()) == 2 && Math.abs(np.getRank() - this.getPosition().getRank()) == 1 
+			|| Math.abs(np.getFile() - this.getPosition().getFile()) == 1 && Math.abs(np.getRank() - this.getPosition().getRank()) == 2){
 			//moves the piece to destination spot
 			board.getBoard()[np.getFile()][np.getRank()] = board.atPosition(this.getPosition());
 			board.getBoard()[this.getPosition().getFile()][this.getPosition().getRank()] = null;
