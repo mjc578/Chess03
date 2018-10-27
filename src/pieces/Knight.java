@@ -21,8 +21,7 @@ public class Knight extends Pieces{
 		if(isTeammate(np, board)) {
 			return false;
 		}
-		
-		
+				
 		if (Math.abs(np.getFile() - this.getPosition().getFile()) == 2 && Math.abs(np.getRank() - this.getPosition().getRank()) == 1 
 			|| Math.abs(np.getFile() - this.getPosition().getFile()) == 1 && Math.abs(np.getRank() - this.getPosition().getRank()) == 2){
 			//moves the piece to destination spot
@@ -30,6 +29,7 @@ public class Knight extends Pieces{
 			board.getBoard()[this.getPosition().getFile()][this.getPosition().getRank()] = null;
 			//update position field
 			this.setPosition(Position.toChar(np.getFile()), np.getRank());
+
 			return true;
 		}
 		
