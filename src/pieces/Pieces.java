@@ -37,7 +37,7 @@ public abstract class Pieces {
 			return true;
 		}
 		return false;
-	}	
+	}
 	
 	//returns true if positions between the current piece's position and its desired position are empty, false otherwise
 	//returns true for knight piece as it can jump over anything
