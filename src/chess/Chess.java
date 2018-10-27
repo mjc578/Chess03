@@ -73,6 +73,7 @@ public class Chess {
 				}
 			}
 			
+			
 			if(whiteTurn) {
 				System.out.println("\nBlack move: \n");
 				whiteTurn = false;
@@ -83,12 +84,10 @@ public class Chess {
 				blackTurn = false;
 				whiteTurn = true;
 			}
+			
+			board.maintainPawn();
 		}
-		
-
-		
 		sc.close();
-		
 	}
 
 }

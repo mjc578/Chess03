@@ -6,6 +6,7 @@ public class Pawn extends Pieces{
 	
 	private boolean firstMove = false;
 	private boolean justMovedTwo = false;
+	private int count = 0;
 
 	public Pawn(String name, String color, Position currentPosition) {
 		super(name, color, currentPosition);
@@ -17,6 +18,18 @@ public class Pawn extends Pieces{
 	
 	public boolean getJustMovedTwo() {
 		return justMovedTwo;
+	}
+	
+	public void setJustMovedTwo(boolean justMovedTwo) {
+		this.justMovedTwo = justMovedTwo;
+	}
+	
+	public int getCount() {
+		return count;
+	}
+	
+	public void setCount(int count) {
+		this.count = count;
 	}
 
 	@Override
@@ -108,7 +121,6 @@ public class Pawn extends Pieces{
 				}
 				else {
 					Position p = new Position(Position.toChar(np.getFile() + 1), this.getPosition().getRank() + 1);
-					System.out.println("THIS IS: " + p.getFile() + " " + p.getRank());
 					if(board.atPosition(p) != null){
 						if(board.atPosition(p).getName().equals("pawn")){
 							Pawn wpawn = (Pawn) board.atPosition(p);
@@ -144,4 +156,4 @@ public class Pawn extends Pieces{
 //TODO: PAwn has issue where if it moved up two it can still be en passanted  if it never moves and an enemy pawn comes next to it later
 
 //perhaps board class can keep arrays of each sides pawns and each pawn has a counter that increments if they have just moved two true
-//and if that couunter exceeds 0 then switch that justmovedtwo to zero
+//and if that counter exceeds 0 then switch that justmovedtwo to false

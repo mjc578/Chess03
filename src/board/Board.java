@@ -116,4 +116,24 @@ public class Board {
 		//update position field
 		p.setPosition(Position.toChar(np.getFile()), np.getRank());
 	}
+	
+	public void maintainPawn() {
+		for (int i = 0; i<8; i++) {
+			for (int j = 0; j<8; j++) {
+				if(board[i][j] != null) {
+					if(board[i][j].getName().equals("pawn")) {
+						Pawn p = (Pawn) board[i][j];
+						if(p.getCount() == 0 && p.getJustMovedTwo() == true) {
+							p.setCount(1);
+						}
+						else {
+							p.setJustMovedTwo(false);
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	
 }
