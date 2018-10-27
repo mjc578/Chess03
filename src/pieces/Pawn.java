@@ -60,7 +60,7 @@ public class Pawn extends Pieces{
 				//piece is attempting en passant, so an enemy pawn must be either on its right file or left file and have JUST moved two squares on its first move
 				else {
 					//get the position right under where pawn wants to go to see if it is a pawn who just moved 2
-					Position p = new Position(Position.toChar(np.getFile()), this.getPosition().getRank() + 1);
+					Position p = new Position(Position.toChar(np.getFile() + 1), this.getPosition().getRank() + 1);
 					//is the position under occupied?
 					if(board.atPosition(p) != null){
 						//is position a pawn?
@@ -70,6 +70,7 @@ public class Pawn extends Pieces{
 							if(wpawn.getJustMovedTwo()) {
 								//DENIED, get en passanteddddd
 								board.updateBoard(this, np);
+								board.getBoard()[p.getFile()][p.getRank()] = null;
 								return true;
 							}
 						}	
@@ -79,14 +80,14 @@ public class Pawn extends Pieces{
 			//moved up one or two...
 			if(np.getFile() == this.getPosition().getFile()) {
 				//piece moved up two
-				if(np.getRank() - this.getPosition().getRank() == 2 && firstMove == false) {
+				if(np.getRank() - this.getPosition().getRank() == 2 && firstMove == false && board.atPosition(np) == null) {
 					firstMove = true;
 					justMovedTwo = true;
 					board.updateBoard(this, np);
 					return true;
 				}
 				//piece moved up one
-				else if(np.getRank() - this.getPosition().getRank() == 1) {
+				else if(np.getRank() - this.getPosition().getRank() == 1 && board.atPosition(np) == null) {
 					justMovedTwo = false;
 					firstMove = true;
 					board.updateBoard(this, np);
@@ -96,7 +97,7 @@ public class Pawn extends Pieces{
 		}
 		//pawn is black, may only move down
 		else{
-			if(Math.abs(np.getFile() - this.getPosition().getFile()) == -1 && np.getRank() - this.getPosition().getRank() == -1) {
+			if(Math.abs(np.getFile() - this.getPosition().getFile()) == 1 && np.getRank() - this.getPosition().getRank() == -1) {
 				if(board.atPosition(np) != null) {
 					if(!firstMove) {
 						firstMove = true;
@@ -106,12 +107,14 @@ public class Pawn extends Pieces{
 					return true; 
 				}
 				else {
-					Position p = new Position(Position.toChar(np.getFile()), this.getPosition().getRank() - 1);
+					Position p = new Position(Position.toChar(np.getFile() + 1), this.getPosition().getRank() + 1);
+					System.out.println("THIS IS: " + p.getFile() + " " + p.getRank());
 					if(board.atPosition(p) != null){
 						if(board.atPosition(p).getName().equals("pawn")){
 							Pawn wpawn = (Pawn) board.atPosition(p);
 							if(wpawn.getJustMovedTwo()) {
 								board.updateBoard(this, np);
+								board.getBoard()[p.getFile()][p.getRank()] = null;
 								return true;
 							}
 						}	
@@ -119,13 +122,13 @@ public class Pawn extends Pieces{
 				}
 			}
 			if(np.getFile() == this.getPosition().getFile()) {
-				if(np.getRank() - this.getPosition().getRank() == -2 && firstMove == false) {
+				if(np.getRank() - this.getPosition().getRank() == -2 && firstMove == false && board.atPosition(np) == null) {
 					firstMove = true;
 					justMovedTwo = true;
 					board.updateBoard(this, np);
 					return true;
 				}
-				else if(np.getRank() - this.getPosition().getRank() == -1) {
+				else if(np.getRank() - this.getPosition().getRank() == -1 && board.atPosition(np) == null) {
 					justMovedTwo = false;
 					firstMove = true;
 					board.updateBoard(this, np);
@@ -136,3 +139,9 @@ public class Pawn extends Pieces{
 		return false;
 	}
 }
+
+
+//TODO: PAwn has issue where if it moved up two it can still be en passanted  if it never moves and an enemy pawn comes next to it later
+
+//perhaps board class can keep arrays of each sides pawns and each pawn has a counter that increments if they have just moved two true
+//and if that couunter exceeds 0 then switch that justmovedtwo to zero

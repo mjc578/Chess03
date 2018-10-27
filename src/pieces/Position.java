@@ -19,7 +19,7 @@ public class Position {
 	}
 	
 	public void setFile(char file) {
-		this.file = file;
+		this.file = fromChar(file);
 	}
 	
 	public void setRank(int rank) {
