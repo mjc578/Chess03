@@ -40,13 +40,19 @@ public class Chess {
 			
 			//only moves past this point
 			
+			//TODO: check if the enetered moves are the same
+			
 			char pf1 = inputs[0].charAt(0);
 			int pr1 = inputs[0].charAt(1) - '0';
 			char pf2 = inputs[1].charAt(0);
 			int pr2 = inputs[1].charAt(1) - '0';
 			
 			if(pf1 < 'a' || pf1 > 'h' || pf2 < 'a' || pf2 > 'h' || pr1 < 1 || pr1 > 8 || pr2 < 1 || pr2 > 8){
-				System.out.println("Invalid move entry, try again");
+				System.out.println("Illegal move, try again");
+				continue;
+			}
+			if(pf1 == pf2 && pr1 == pr2) {
+				System.out.println("Illegal move, try again");
 				continue;
 			}
 			

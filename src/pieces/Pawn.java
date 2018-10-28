@@ -130,7 +130,6 @@ public class Pawn extends Pieces{
 		}
 		else {
 			if(Math.abs(np.getFile() - this.getPosition().getFile()) == 1 && np.getRank() - this.getPosition().getRank() == -1) {
-				//PROBLEM HERE  vvvvvvvvvvvvvvv WHEN TESTING TO SEE IF IT CAN ATTACK SPACE
 				if(board.atPosition(np) != null) {
 					if(!firstMove) {
 						firstMove = true;

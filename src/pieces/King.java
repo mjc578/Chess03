@@ -22,21 +22,27 @@ public class King extends Pieces{
 		}
 		
 		//king may move one spot in any direction
-		if(Math.abs(this.getPosition().getFile() - np.getFile()) > 1 || Math.abs(this.getPosition().getRank() - np.getRank()) > 1) {
-			return false;
-		}
-		else if(Math.abs(this.getPosition().getFile() - np.getFile()) == 2) {
-			if(castle(np, board)) {
-				return true;
-			}
-			return false;
-		}
 		
-		//check if new position is under attack
-		if(Board.isUnderAttack(this, np, board)) {
-			return false;
+		//TODO: might have to change this below to true since king may be unable to castle
+		if(Math.abs(this.getPosition().getFile() - np.getFile()) <= 1 && Math.abs(this.getPosition().getRank() - np.getRank()) <= 1) {
+			//check if new position is under attack
+			if(!Board.isUnderAttack(this, np, board)) {
+				return true;
+			
+			}
 		}
-		return true;
+		//attempts castling
+		else if(Math.abs(this.getPosition().getFile() - np.getFile()) == 2) {
+			//must be in same rank for castlage
+			if(this.getPosition().getRank() != np.getRank()) {
+				return false;
+			}
+			if(!castle(np, board)) {
+				return false;
+			}
+			return true;
+		}
+		return false;
 	}
 
 	//king does not need to check if it is putting itself in check, as it is DA KING, and he already checked lmao
@@ -66,14 +72,62 @@ public class King extends Pieces{
 		if(Board.isUnderAttack(this, this.getPosition(), board)) {
 			return false;
 		}
+		int rank = this.getPosition().getRank();
 		
-		//check if king can move through these spaces
-		if(!this.canMoveThrough(np, board)) {
-			return false;
+		//king is attempting castle right side
+		if(this.getPosition().getFile() - np.getFile() == -2) {
+			//check if spaces where king wants to go are under attack and are empty
+			if(board.getBoard()[rank][5] != null || Board.isUnderAttack(this, new Position('f', rank + 1), board)) {
+				return false;
+			}
+			if(board.getBoard()[rank][6] != null || Board.isUnderAttack(this, new Position('g', rank + 1), board)) {
+				return false;
+			}
+			//check if rook has moved before and is even there
+			if(board.getBoard()[rank][7] == null) {
+				return false;
+			}
+			else {
+				if(board.getBoard()[rank][7].getName().equals("Rook")) {
+					Rook r = (Rook) board.getBoard()[rank][7];
+					if(r.getFirstMove() == false) {
+						//move the rook over the king
+						board.getBoard()[rank][5] = board.getBoard()[rank][7];
+						board.getBoard()[rank][7] = null;
+						r.setFirstMove();
+						return true;
+					}
+				}
+			}
 		}
-		//check if result space is taken
-		if(board.atPosition(np) == null) {
-			
+		//king is attempting castle left side
+		if(this.getPosition().getFile() - np.getFile() == 2) {
+			//check if spaces where king wants to go are under attack and are empty
+			if(board.getBoard()[rank][3] != null || Board.isUnderAttack(this, new Position('d', rank + 1), board)) {
+				return false;
+			}
+			if(board.getBoard()[rank][2] != null || Board.isUnderAttack(this, new Position('c', rank + 1), board)) {
+				return false;
+			}
+			//leftside requires check for the space between where rook is and king, can be in check just cant be occupado
+			if(board.getBoard()[rank][1] != null) {
+				return false;
+			}
+			if(board.getBoard()[rank][0] == null) {
+				return false;
+			}
+			else {
+				if(board.getBoard()[rank][0].getName().equals("Rook")) {
+					Rook r = (Rook) board.getBoard()[rank][0];
+					if(r.getFirstMove() == false) {
+						//move the rook over the king
+						board.getBoard()[rank][3] = board.getBoard()[rank][0];
+						board.getBoard()[rank][0] = null;
+						r.setFirstMove();
+						return true;
+					}
+				}
+			}
 		}
 		return false;
 	}
