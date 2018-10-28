@@ -5,7 +5,6 @@ import board.Board;
 public class King extends Pieces{
 	
 	private boolean firstMove = false;
-	private boolean inCheck = false; //dont know if this is actually useful
 
 	public King(String name, String color, Position currentPosition) {
 		super(name, color, currentPosition);
@@ -77,24 +76,25 @@ public class King extends Pieces{
 		//king is attempting castle right side
 		if(this.getPosition().getFile() - np.getFile() == -2) {
 			//check if spaces where king wants to go are under attack and are empty
-			if(board.getBoard()[rank][5] != null || Board.isUnderAttack(this, new Position('f', rank + 1), board)) {
+			if(board.getBoard()[5][rank] != null || Board.isUnderAttack(this, new Position('f', rank + 1), board)) {
 				return false;
 			}
-			if(board.getBoard()[rank][6] != null || Board.isUnderAttack(this, new Position('g', rank + 1), board)) {
+			if(board.getBoard()[6][rank] != null || Board.isUnderAttack(this, new Position('g', rank + 1), board)) {
 				return false;
 			}
 			//check if rook has moved before and is even there
-			if(board.getBoard()[rank][7] == null) {
+			if(board.getBoard()[7][rank] == null) {
 				return false;
 			}
 			else {
-				if(board.getBoard()[rank][7].getName().equals("Rook")) {
-					Rook r = (Rook) board.getBoard()[rank][7];
+				if(board.getBoard()[7][rank].getName().equals("Rook")) {
+					Rook r = (Rook) board.getBoard()[7][rank];
 					if(r.getFirstMove() == false) {
 						//move the rook over the king
-						board.getBoard()[rank][5] = board.getBoard()[rank][7];
-						board.getBoard()[rank][7] = null;
+						board.getBoard()[5][rank] = board.getBoard()[7][rank];
+						board.getBoard()[7][rank] = null;
 						r.setFirstMove();
+						r.setPosition('e', rank);
 						return true;
 					}
 				}
@@ -103,26 +103,27 @@ public class King extends Pieces{
 		//king is attempting castle left side
 		if(this.getPosition().getFile() - np.getFile() == 2) {
 			//check if spaces where king wants to go are under attack and are empty
-			if(board.getBoard()[rank][3] != null || Board.isUnderAttack(this, new Position('d', rank + 1), board)) {
+			if(board.getBoard()[3][rank] != null || Board.isUnderAttack(this, new Position('d', rank + 1), board)) {
 				return false;
 			}
-			if(board.getBoard()[rank][2] != null || Board.isUnderAttack(this, new Position('c', rank + 1), board)) {
+			if(board.getBoard()[2][rank] != null || Board.isUnderAttack(this, new Position('c', rank + 1), board)) {
 				return false;
 			}
 			//leftside requires check for the space between where rook is and king, can be in check just cant be occupado
-			if(board.getBoard()[rank][1] != null) {
+			if(board.getBoard()[1][rank] != null) {
 				return false;
 			}
-			if(board.getBoard()[rank][0] == null) {
+			if(board.getBoard()[0][rank] == null) {
 				return false;
 			}
 			else {
-				if(board.getBoard()[rank][0].getName().equals("Rook")) {
+				if(board.getBoard()[0][rank].getName().equals("Rook")) {
 					Rook r = (Rook) board.getBoard()[rank][0];
 					if(r.getFirstMove() == false) {
 						//move the rook over the king
-						board.getBoard()[rank][3] = board.getBoard()[rank][0];
-						board.getBoard()[rank][0] = null;
+						board.getBoard()[3][rank] = board.getBoard()[0][rank];
+						board.getBoard()[0][rank] = null;
+						r.setPosition('c', rank);
 						r.setFirstMove();
 						return true;
 					}

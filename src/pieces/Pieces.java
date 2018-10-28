@@ -172,12 +172,3 @@ public abstract class Pieces{
 	}
 
 }
-
-/*
-
-board[np.getFile()][np.getRank()] = atPosition(p.getPosition());
-board[p.getPosition().getFile()][p.getPosition().getRank()] = null;
-//update position field
-p.setPosition(Position.toChar(np.getFile()), np.getRank());
-
-*/
