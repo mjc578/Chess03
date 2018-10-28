@@ -10,10 +10,10 @@ public class Queen extends Pieces{
 
 	//queen movement does not depend on if there is a piece in space it is moving to, unlike pawn
 	@Override
-	public boolean move(Position np, Board board) {
+	public boolean isValid(Position np, Board board) {
 		
 		//piece cannot leave the confines of the board, uses the super method instead of override
-		if(!super.move(np, board)) {
+		if(!isOutOfBounds(np, board)) {
 			return false;
 		}
 		
@@ -30,9 +30,20 @@ public class Queen extends Pieces{
 		//queen can move like a bishop and a rook piece
 		if((np.getFile() == this.getPosition().getFile() || np.getRank() == this.getPosition().getRank())
 				|| (Math.abs(np.getFile() - this.getPosition().getFile()) == Math.abs(np.getRank() - this.getPosition().getRank()))){
-			board.updateBoard(this, np);
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public boolean move(Position np, Board board) {
+		if(!isValid(np, board)) {
+			return false;
+		}
+		board.getBoard()[np.getFile()][np.getRank()] = this;
+		board.getBoard()[this.getPosition().getFile()][this.getPosition().getRank()] = null;
+		//update position field
+		this.setPosition(Position.toChar(np.getFile()), np.getRank());
+		return true;
 	}
 }

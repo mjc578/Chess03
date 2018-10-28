@@ -2,10 +2,10 @@ package pieces;
 
 import board.Board;
 
-public abstract class Pieces {
+public abstract class Pieces{
 	
-	private String name;
-	private String color;
+	final private String name;
+	final private String color;
 	private Position currentPosition;
 	
 	public Pieces(String name, String color, Position currentPosition) {
@@ -32,12 +32,17 @@ public abstract class Pieces {
 	}
 	
 	//checks if piece is leaving confines of the board
-	public boolean move(Position np, Board board) {
+	public boolean isOutOfBounds(Position np, Board board) {
 		if(np.getFile() < 8 && np.getFile() >= 0 && np.getRank() < 8 && np.getRank() >= 0) {
 			return true;
 		}
 		return false;
 	}
+	
+	public abstract boolean isValid(Position p, Board board);
+	
+	//should test if actually moving will put king in/out of check
+	public abstract boolean move(Position np, Board board);
 	
 	//returns true if positions between the current piece's position and its desired position are empty, false otherwise
 	//returns true for knight piece as it can jump over anything
@@ -167,3 +172,12 @@ public abstract class Pieces {
 	}
 
 }
+
+/*
+
+board[np.getFile()][np.getRank()] = atPosition(p.getPosition());
+board[p.getPosition().getFile()][p.getPosition().getRank()] = null;
+//update position field
+p.setPosition(Position.toChar(np.getFile()), np.getRank());
+
+*/

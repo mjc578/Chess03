@@ -1,7 +1,5 @@
 package board;
 
-import java.util.ArrayList;
-
 import pieces.Bishop;
 import pieces.King;
 import pieces.Knight;
@@ -47,7 +45,7 @@ public class Board {
 		board[7][7] = new Rook("Rook", "black", new Position('h', 8));
 		
 		for(int i = 0; i < board.length; i++) {
-			board[i][6] = new Pawn("pawn", "black", new Position(Character.toChars(i + 97)[0], 7));
+			board[i][6] = new Pawn("pawn", "black", new Position(Position.toChar(i + 1), 7));
 		}
 		
 		//16 whites:
@@ -62,7 +60,7 @@ public class Board {
 		board[7][0] = new Rook("Rook", "white", new Position('h', 1));
 		
 		for(int i = 0; i < board.length; i++) {
-			board[i][1] = new Pawn("pawn", "white", new Position(Character.toChars(i + 97)[0], 2));
+			board[i][1] = new Pawn("pawn", "white", new Position(Position.toChar(i + 1), 2));
 		}
 	}
 	
@@ -110,13 +108,6 @@ public class Board {
 		}
 	}
 
-	public void updateBoard(Pieces p, Position np) {
-		board[np.getFile()][np.getRank()] = atPosition(p.getPosition());
-		board[p.getPosition().getFile()][p.getPosition().getRank()] = null;
-		//update position field
-		p.setPosition(Position.toChar(np.getFile()), np.getRank());
-	}
-	
 	public void maintainPawn() {
 		for (int i = 0; i<8; i++) {
 			for (int j = 0; j<8; j++) {
@@ -133,7 +124,57 @@ public class Board {
 				}
 			}
 		}
+	}	
+
+	//checks if position is under attack with respect to the color of player calling it, important since can not have king under attack
+	public static boolean isUnderAttack(Pieces piece, Position p, Board board) {
+		
+		//fix this by putting a temp in the spot of interest, so pawns can test it, make it disappear after test
+		Board temp = new Board();
+		for(int i = 0; i < 8; i++) {
+			for(int j = 0; j < 8; j++) {
+				temp.getBoard()[i][j] = board.getBoard()[i][j];
+			}
+		}
+		if(board.getBoard()[p.getFile()][p.getRank()] == null) {
+			temp.getBoard()[p.getFile()][p.getRank()] = new Pawn("", "", new Position('a', 1));
+		}			
+		for(int i = 0; i < temp.getBoard().length; i++) {
+			for(int j = 0; j < temp.getBoard().length; j++) {
+				if(temp.getBoard()[i][j] != null) {
+					if(piece.getColor().equals("white")) {
+						if(temp.getBoard()[i][j].getColor().equals("black")) {
+							if(temp.getBoard()[i][j].getName().equals("pawn")) {
+								Pawn pawn = (Pawn) temp.getBoard()[i][j];
+								if(pawn.canAttack(p, temp)) {
+									return true;
+								}
+							}
+							else {
+								if(temp.getBoard()[i][j].isValid(p, temp)) {
+									return true;
+								}
+							}
+						}
+					}
+					else {
+						if(temp.getBoard()[i][j].getColor().equals("white")) {
+							if(temp.getBoard()[i][j].getName().equals("pawn")) {
+								Pawn pawn = (Pawn) temp.getBoard()[i][j];
+								if(pawn.canAttack(p, temp)) {
+									return true;
+								}
+							}
+							else {
+								if(temp.getBoard()[i][j].isValid(p, temp)) {
+									return true;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		return false;
 	}
-	
-	
 }
