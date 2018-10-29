@@ -170,5 +170,23 @@ public abstract class Pieces{
 	public String toString() {
 		return "" + color.charAt(0) + name.charAt(0);
 	}
+	
+	//tests if a move puts king into check
+	public boolean testPosition(Pieces piece, Position np, Board board) {
+		Board temp = new Board();
+		for(int i = 0; i < 8; i++) {
+			for(int j = 0; j < 8; j++) {
+				temp.getBoard()[i][j] = board.getBoard()[i][j];
+			}
+		}
+		
+		temp.getBoard()[np.getFile()][np.getRank()] = piece;
+		temp.getBoard()[piece.getPosition().getFile()][piece.getPosition().getRank()] = null;
+		King k = (King) board.atPosition(board.getPositionKing(piece.getColor(), temp));
+		if(k.isInCheck(temp)) {
+			return false;
+		}
+		return true;
+	}
 
 }

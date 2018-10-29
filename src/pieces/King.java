@@ -15,14 +15,10 @@ public class King extends Pieces{
 		if(!isOutOfBounds(np, board)) {
 			return false;
 		}
-		
 		if(isTeammate(np, board)) {
 			return false;
 		}
-		
-		//king may move one spot in any direction
-		
-		//TODO: might have to change this below to true since king may be unable to castle
+		//king may move one spot in any direction		
 		if(Math.abs(this.getPosition().getFile() - np.getFile()) <= 1 && Math.abs(this.getPosition().getRank() - np.getRank()) <= 1) {
 			//check if new position is under attack
 			if(!Board.isUnderAttack(this, np, board)) {
@@ -95,6 +91,7 @@ public class King extends Pieces{
 						board.getBoard()[7][rank] = null;
 						r.setFirstMove();
 						r.setPosition('e', rank);
+						this.firstMove = true;
 						return true;
 					}
 				}
@@ -194,7 +191,7 @@ public class King extends Pieces{
 		}
 		//check up right
 		if(pf + 1 < 8 && pr + 1 < 8) {
-			if(Board.isUnderAttack(this, board.getBoard()[pf + 1][pr + 1].getPosition(), board)) {
+			if(Board.isUnderAttack(this, new Position(Position.toChar(pf + 2), (pr + 1)  +1), board)) {
 				return true;
 			}
 		}

@@ -6,7 +6,6 @@ public class Knight extends Pieces{
 
 	public Knight(String name, String color, Position currentPosition) {
 		super(name, color, currentPosition);
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
@@ -16,8 +15,8 @@ public class Knight extends Pieces{
 			return false;
 		}
 		
-		//Knight piece is special case so dont need to check if there are pieces obstructing its path as it is
-		//permitted to jump over pieces, only need to check if destination has a teammate
+		//Knight piece is special case so don't need to check if there are pieces obstructing its path as it is
+		//permitted to jump over pieces, only need to check if destination has a team mate
 		if(isTeammate(np, board)) {
 			return false;
 		}
@@ -36,6 +35,13 @@ public class Knight extends Pieces{
 		if(!isValid(np, board)) {
 			return false;
 		}
+		
+		//if testPosition is false, that means this move puts king in check, which is illegal
+		boolean test = testPosition(this, np, board);
+		if(!test) {
+			return false;
+		}
+		
 		board.getBoard()[np.getFile()][np.getRank()] = this;
 		board.getBoard()[this.getPosition().getFile()][this.getPosition().getRank()] = null;
 		//update position field

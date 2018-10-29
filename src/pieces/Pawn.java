@@ -158,10 +158,57 @@ public class Pawn extends Pieces{
 		if(!isValid(np, board)) {
 			return false;
 		}
+		
+		boolean test = testPosition(this, np, board);
+		if(!test) {
+			return false;
+		}
+		
+		
 		board.getBoard()[np.getFile()][np.getRank()] = this;
+		if(np.getRank() == 7 || np.getRank() == 0) {
+			board.getBoard()[np.getFile()][np.getRank()] = new Queen("Queen", this.getColor(), np);
+		}
+		
 		board.getBoard()[this.getPosition().getFile()][this.getPosition().getRank()] = null;
-		//update position field
-		this.setPosition(Position.toChar(np.getFile()), np.getRank());
+		if(np.getRank() != 7 && np.getRank() != 0) {
+			this.setPosition(Position.toChar(np.getFile()), np.getRank());
+		}
+		return true;
+	}
+	
+	public boolean promotionMove(String promotion, Position np, Board board) {
+		
+		if(np.getRank() != 7 || np.getRank() != 0) {
+			return false;
+		}
+		
+		if(!isValid(np, board)) {
+			return false;
+		}
+		
+		boolean test = testPosition(this, np, board);
+		if(!test) {
+			return false;
+		}
+		
+		if(promotion.equals("N")) {
+			board.getBoard()[np.getFile()][np.getRank()] = new Knight("Night", this.getColor(), np);
+		}
+		else if(promotion.equals("Q")) {
+			board.getBoard()[np.getFile()][np.getRank()] = new Queen("Queen", this.getColor(), np);
+		}
+		else if(promotion.equals("R")) {
+			board.getBoard()[np.getFile()][np.getRank()] = new Rook("Rook", this.getColor(), np);
+		}
+		else if(promotion.equals("B")) {
+			board.getBoard()[np.getFile()][np.getRank()] = new Bishop("Bishop", this.getColor(), np);
+		}
+		else {
+			//entered a piece that was invalid
+			return false;
+		}
+		board.getBoard()[this.getPosition().getFile()][this.getPosition().getRank()] = null;
 		return true;
 	}
 }

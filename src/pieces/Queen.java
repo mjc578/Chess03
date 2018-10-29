@@ -40,6 +40,12 @@ public class Queen extends Pieces{
 		if(!isValid(np, board)) {
 			return false;
 		}
+		
+		boolean test = testPosition(this, np, board);
+		if(!test) {
+			return false;
+		}
+		
 		board.getBoard()[np.getFile()][np.getRank()] = this;
 		board.getBoard()[this.getPosition().getFile()][this.getPosition().getRank()] = null;
 		//update position field
