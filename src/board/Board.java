@@ -177,4 +177,17 @@ public class Board {
 		}
 		return false;
 	}
+
+	//gets position of king of same color of piece calling this methodical method
+	public static Position getPositionKing(String color, Board board) {
+		Position p = null;
+		for(int i = 0; i < 8; i++) {
+			for(int j = 0; j < 8; j++) {
+				if(board.getBoard()[i][j].getName().equals("King") && board.getBoard()[i][j].getColor().equals(color)) {
+					p = board.getBoard()[i][j].getPosition();
+				}
+			}
+		}
+		return p;
+	}
 }

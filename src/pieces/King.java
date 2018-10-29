@@ -132,4 +132,72 @@ public class King extends Pieces{
 		}
 		return false;
 	}
+
+
+	//checks if king of same color as piece calling this method is in check
+	public boolean isInCheck(Board board) {
+		
+		if(Board.isUnderAttack(this, this.getPosition(), board)) {
+			return true;
+		}
+		return false;
+		
+	}
+	
+	//wrecked?
+	public boolean isCheckmated(Board board) {
+		//checks all the spaces king may move to to see if they are in check
+		//the prereq for this to be called is if the king is in checkmate
+		int pf = this.getPosition().getFile();
+		int pr = this.getPosition().getRank();
+		//check up
+		if(pr + 1 < 8) {
+			if(Board.isUnderAttack(this, board.getBoard()[pf][pr + 1].getPosition(), board)) {
+				return true;
+			}
+		}
+		//check up left
+		if(pf - 1 > 0 && pr + 1 < 8) {
+			if(Board.isUnderAttack(this, board.getBoard()[pf - 1][pr + 1].getPosition(), board)) {
+				return true;
+			}
+		}
+		//check left
+		if(pf - 1 > 0) {
+			if(Board.isUnderAttack(this, board.getBoard()[pf - 1][pr].getPosition(), board)) {
+				return true;
+			}
+		}
+		//check bottom left
+		if(pf - 1 > 0 && pr - 1 > 0) {
+			if(Board.isUnderAttack(this, board.getBoard()[pf - 1][pr - 1].getPosition(), board)) {
+				return true;
+			}
+		}
+		//check bottom
+		if(pr - 1 > 0) {
+			if(Board.isUnderAttack(this, board.getBoard()[pf][pr - 1].getPosition(), board)) {
+				return true;
+			}
+		}
+		//check bottom right
+		if(pf + 1 < 8 && pr - 1 > 0) {
+			if(Board.isUnderAttack(this, board.getBoard()[pf + 1][pr - 1].getPosition(), board)) {
+				return true;
+			}
+		}
+		//check right
+		if(pf + 1 < 8) {
+			if(Board.isUnderAttack(this, board.getBoard()[pf + 1][pr].getPosition(), board)) {
+				return true;
+			}
+		}
+		//check up right
+		if(pf + 1 < 8 && pr + 1 < 8) {
+			if(Board.isUnderAttack(this, board.getBoard()[pf + 1][pr + 1].getPosition(), board)) {
+				return true;
+			}
+		}
+		return false;
+	}
 }
