@@ -38,6 +38,10 @@ public class Rook extends Pieces{
 		
 		//rook can only move through a file or through a rank
 		if(np.getFile() == this.getPosition().getFile() || np.getRank() == this.getPosition().getRank()) {
+			boolean test = testPosition(this, np, board);
+			if(!test) {
+				return false;
+			}
 			return true;
 		}
 		return false;

@@ -176,7 +176,7 @@ public class Chess {
 				System.out.print("White's move: ");
 			}
 			else {
-				System.out.print("Blacks's move: ");
+				System.out.print("Black's move: ");
 			}			
 			board.maintainPawn();
 		}
@@ -191,7 +191,6 @@ public class Chess {
 			System.out.print("White's move: ");
 			return;
 		}
-		System.out.print("Black's turn: ");
+		System.out.print("Black's move: ");
 	}
 }
-

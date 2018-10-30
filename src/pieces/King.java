@@ -51,6 +51,7 @@ public class King extends Pieces{
 		board.getBoard()[this.getPosition().getFile()][this.getPosition().getRank()] = null;
 		//update position field
 		this.setPosition(Position.toChar(np.getFile()), np.getRank());
+		firstMove = true;
 		return true;
 		
 	}
@@ -91,7 +92,7 @@ public class King extends Pieces{
 						board.getBoard()[7][rank] = null;
 						r.setFirstMove();
 						r.setPosition('e', rank);
-						this.firstMove = true;
+						firstMove = true;
 						return true;
 					}
 				}
@@ -115,13 +116,14 @@ public class King extends Pieces{
 			}
 			else {
 				if(board.getBoard()[0][rank].getName().equals("Rook")) {
-					Rook r = (Rook) board.getBoard()[rank][0];
+					Rook r = (Rook) board.getBoard()[0][rank];
 					if(r.getFirstMove() == false) {
 						//move the rook over the king
 						board.getBoard()[3][rank] = board.getBoard()[0][rank];
 						board.getBoard()[0][rank] = null;
 						r.setPosition('c', rank);
 						r.setFirstMove();
+						firstMove = true;
 						return true;
 					}
 				}
@@ -171,5 +173,6 @@ public class King extends Pieces{
 				}
 			}
 		}
+		return true;
 	}
 }

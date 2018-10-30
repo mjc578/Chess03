@@ -66,8 +66,6 @@ public class Pawn extends Pieces{
 					if(!test) {
 						return false;
 					}
-					firstMove = true;
-					justMovedTwo = true;
 					return true;
 				}
 				//piece moved up one
@@ -76,8 +74,6 @@ public class Pawn extends Pieces{
 					if(!test) {
 						return false;
 					}
-					justMovedTwo = false;
-					firstMove = true;
 					return true;
 				}
 			}
@@ -97,8 +93,6 @@ public class Pawn extends Pieces{
 					if(!test) {
 						return false;
 					}
-					firstMove = true;
-					justMovedTwo = true;
 					return true;
 				}
 				else if(np.getRank() - this.getPosition().getRank() == -1 && board.atPosition(np) == null) {
@@ -106,8 +100,6 @@ public class Pawn extends Pieces{
 					if(!test) {
 						return false;
 					}
-					justMovedTwo = false;
-					firstMove = true;
 					return true;
 				}
 			}
@@ -125,11 +117,6 @@ public class Pawn extends Pieces{
 			if(Math.abs(np.getFile() - this.getPosition().getFile()) == 1 && np.getRank() - this.getPosition().getRank() == 1) {
 				//piece is attempting a capture, we already checked if where it wants to go is occupied by teammate, so it is guaranteed to be an enemy
 				if(board.atPosition(np) != null) {
-					//pawn is able to capture as its first move
-					if(!firstMove) {
-						firstMove = true;
-					}
-					justMovedTwo = false;
 					return true; 
 				}
 				//piece is attempting en passant, so an enemy pawn must be either on its right file or left file and have JUST moved two squares on its first move
@@ -155,10 +142,6 @@ public class Pawn extends Pieces{
 		else {
 			if(Math.abs(np.getFile() - this.getPosition().getFile()) == 1 && np.getRank() - this.getPosition().getRank() == -1) {
 				if(board.atPosition(np) != null) {
-					if(!firstMove) {
-						firstMove = true;
-					}
-					justMovedTwo = false;
 					return true; 
 				}
 				else {
@@ -183,6 +166,14 @@ public class Pawn extends Pieces{
 			return false;
 		}
 		
+		if(Math.abs(this.getPosition().getRank() - np.getRank()) == 2) {
+			justMovedTwo = true;
+		}
+		else {
+			justMovedTwo = false;
+		}
+		firstMove = true;
+		
 		board.getBoard()[np.getFile()][np.getRank()] = this;
 		if(np.getRank() == 7 || np.getRank() == 0) {
 			board.getBoard()[np.getFile()][np.getRank()] = new Queen("Queen", this.getColor(), np);
@@ -197,7 +188,7 @@ public class Pawn extends Pieces{
 	
 	public boolean promotionMove(String promotion, Position np, Board board) {
 		
-		if(np.getRank() != 7 || np.getRank() != 0) {
+		if(np.getRank() != 7 && np.getRank() != 0) {
 			return false;
 		}
 		
