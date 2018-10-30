@@ -192,4 +192,13 @@ public class Board {
 		}
 		return p;
 	}
+	
+	public Position getBoardPosition(int file, int rank) {
+		if(board[file][rank] == null) {
+			return new Position(Position.toChar(file + 1), rank + 1);
+		}
+		else {
+			return board[file][rank].getPosition();
+		}
+	}
 }

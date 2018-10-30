@@ -149,49 +149,49 @@ public class King extends Pieces{
 		int pr = this.getPosition().getRank();
 		//check up
 		if(pr + 1 < 8) {
-			if(Board.isUnderAttack(this, board.getBoard()[pf][pr + 1].getPosition(), board)) {
+			if(Board.isUnderAttack(this, board.getBoardPosition(pf, pr + 1), board)) {
 				return true;
 			}
 		}
 		//check up left
 		if(pf - 1 > 0 && pr + 1 < 8) {
-			if(Board.isUnderAttack(this, board.getBoard()[pf - 1][pr + 1].getPosition(), board)) {
+			if(Board.isUnderAttack(this, board.getBoardPosition(pf - 1, pr + 1), board)) {
 				return true;
 			}
 		}
 		//check left
 		if(pf - 1 > 0) {
-			if(Board.isUnderAttack(this, board.getBoard()[pf - 1][pr].getPosition(), board)) {
+			if(Board.isUnderAttack(this, board.getBoardPosition(pf - 1, pr), board)) {
 				return true;
 			}
 		}
 		//check bottom left
 		if(pf - 1 > 0 && pr - 1 > 0) {
-			if(Board.isUnderAttack(this, board.getBoard()[pf - 1][pr - 1].getPosition(), board)) {
+			if(Board.isUnderAttack(this, board.getBoardPosition(pf - 1, pr - 1), board)) {
 				return true;
 			}
 		}
 		//check bottom
 		if(pr - 1 > 0) {
-			if(Board.isUnderAttack(this, board.getBoard()[pf][pr - 1].getPosition(), board)) {
+			if(Board.isUnderAttack(this, board.getBoardPosition(pf, pr - 1), board)) {
 				return true;
 			}
 		}
 		//check bottom right
 		if(pf + 1 < 8 && pr - 1 > 0) {
-			if(Board.isUnderAttack(this, board.getBoard()[pf + 1][pr - 1].getPosition(), board)) {
+			if(Board.isUnderAttack(this, board.getBoardPosition(pf + 1, pr - 1), board)) {
 				return true;
 			}
 		}
 		//check right
 		if(pf + 1 < 8) {
-			if(Board.isUnderAttack(this, board.getBoard()[pf + 1][pr].getPosition(), board)) {
+			if(Board.isUnderAttack(this, board.getBoardPosition(pf + 1, pr), board)) {
 				return true;
 			}
 		}
 		//check up right
 		if(pf + 1 < 8 && pr + 1 < 8) {
-			if(Board.isUnderAttack(this, new Position(Position.toChar(pf + 2), (pr + 1)  +1), board)) {
+			if(Board.isUnderAttack(this, board.getBoardPosition(pf + 1, pr + 1), board)) {
 				return true;
 			}
 		}
