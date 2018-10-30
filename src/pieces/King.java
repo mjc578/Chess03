@@ -141,60 +141,36 @@ public class King extends Pieces{
 		
 	}
 	
-	//wrecked?
+	//sees if player is in checkmate by testing all players oieces if they can make any valid moves which
+	//place king out of check, returns true if none can
 	public boolean isCheckmated(Board board) {
-		//checks all the spaces king may move to to see if they are in check
-		//the prereq for this to be called is if the king is in checkmate
-		int pf = this.getPosition().getFile();
-		int pr = this.getPosition().getRank();
-		//check up
-		if(pr + 1 < 8) {
-			if(Board.isUnderAttack(this, board.getBoard()[pf][pr + 1].getPosition(), board)) {
-				return true;
+		for(int i = 0; i < 8; i++) {
+			for(int j = 0; j < 8; j++) {
+				Pieces p = board.getBoard()[i][j];
+				if(p != null && p.getColor().equals(this.getColor())) {
+					for(int k = 0; k < 8; k++) {
+						for(int l = 0; l < 8; l++) {
+							if(board.getBoard()[k][l] != null && board.getBoard()[k][l].getColor().equals(p.getColor())) {
+								continue;
+							}
+							else if(board.getBoard()[k][l] == null || !board.getBoard()[k][l].getColor().equals(p.getColor())) {
+								if(p.getName().equals("pawn")) {
+									Pawn pp = (Pawn) p;
+									if(pp.isValid(board.getBoardPosition(k, l), board)){
+										return false;
+									}
+								}
+								else {
+									if(p.isValid(board.getBoardPosition(k, l), board)) {
+										return false;
+									}
+								}
+							}
+						}
+					}
+				}
 			}
 		}
-		//check up left
-		if(pf - 1 > 0 && pr + 1 < 8) {
-			if(Board.isUnderAttack(this, board.getBoard()[pf - 1][pr + 1].getPosition(), board)) {
-				return true;
-			}
-		}
-		//check left
-		if(pf - 1 > 0) {
-			if(Board.isUnderAttack(this, board.getBoard()[pf - 1][pr].getPosition(), board)) {
-				return true;
-			}
-		}
-		//check bottom left
-		if(pf - 1 > 0 && pr - 1 > 0) {
-			if(Board.isUnderAttack(this, board.getBoard()[pf - 1][pr - 1].getPosition(), board)) {
-				return true;
-			}
-		}
-		//check bottom
-		if(pr - 1 > 0) {
-			if(Board.isUnderAttack(this, board.getBoard()[pf][pr - 1].getPosition(), board)) {
-				return true;
-			}
-		}
-		//check bottom right
-		if(pf + 1 < 8 && pr - 1 > 0) {
-			if(Board.isUnderAttack(this, board.getBoard()[pf + 1][pr - 1].getPosition(), board)) {
-				return true;
-			}
-		}
-		//check right
-		if(pf + 1 < 8) {
-			if(Board.isUnderAttack(this, board.getBoard()[pf + 1][pr].getPosition(), board)) {
-				return true;
-			}
-		}
-		//check up right
-		if(pf + 1 < 8 && pr + 1 < 8) {
-			if(Board.isUnderAttack(this, new Position(Position.toChar(pf + 2), (pr + 1)  +1), board)) {
-				return true;
-			}
-		}
-		return false;
+		return true;
 	}
 }

@@ -15,6 +15,8 @@ public class Knight extends Pieces{
 			return false;
 		}
 		
+		
+		
 		//Knight piece is special case so don't need to check if there are pieces obstructing its path as it is
 		//permitted to jump over pieces, only need to check if destination has a team mate
 		if(isTeammate(np, board)) {
@@ -23,6 +25,11 @@ public class Knight extends Pieces{
 				
 		if (Math.abs(np.getFile() - this.getPosition().getFile()) == 2 && Math.abs(np.getRank() - this.getPosition().getRank()) == 1 
 			|| Math.abs(np.getFile() - this.getPosition().getFile()) == 1 && Math.abs(np.getRank() - this.getPosition().getRank()) == 2){
+			boolean test = testPosition(this, np, board);
+			if(!test) {
+				return false;
+			}
+			
 			return true;
 		}
 		
@@ -33,12 +40,6 @@ public class Knight extends Pieces{
 	public boolean move(Position np, Board board) {
 		
 		if(!isValid(np, board)) {
-			return false;
-		}
-		
-		//if testPosition is false, that means this move puts king in check, which is illegal
-		boolean test = testPosition(this, np, board);
-		if(!test) {
 			return false;
 		}
 		

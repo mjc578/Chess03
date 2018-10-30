@@ -50,12 +50,6 @@ public class Rook extends Pieces{
 			return false;
 		}
 		
-		//if testPosition is false, that means this move puts king in check, which is illegal
-		boolean test = testPosition(this, np, board);
-		if(!test) {
-			return false;
-		}
-		
 		board.getBoard()[np.getFile()][np.getRank()] = this;
 		board.getBoard()[this.getPosition().getFile()][this.getPosition().getRank()] = null;
 		//update position field

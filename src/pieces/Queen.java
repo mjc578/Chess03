@@ -29,7 +29,11 @@ public class Queen extends Pieces{
 			
 		//queen can move like a bishop and a rook piece
 		if((np.getFile() == this.getPosition().getFile() || np.getRank() == this.getPosition().getRank())
-				|| (Math.abs(np.getFile() - this.getPosition().getFile()) == Math.abs(np.getRank() - this.getPosition().getRank()))){
+				|| (Math.abs(np.getFile() - this.getPosition().getFile()) == Math.abs(np.getRank() - this.getPosition().getRank()))){			
+			boolean test = testPosition(this, np, board);
+			if(!test) {
+				return false;
+			}
 			return true;
 		}
 		return false;
@@ -38,11 +42,6 @@ public class Queen extends Pieces{
 	@Override
 	public boolean move(Position np, Board board) {
 		if(!isValid(np, board)) {
-			return false;
-		}
-		
-		boolean test = testPosition(this, np, board);
-		if(!test) {
 			return false;
 		}
 		

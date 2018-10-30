@@ -26,19 +26,19 @@ public class Bishop extends Pieces{
 		}
 		
 		if(Math.abs(np.getFile() - this.getPosition().getFile()) == Math.abs(np.getRank() - this.getPosition().getRank())) {
+			boolean test = testPosition(this, np, board);
+			if(!test) {
+				return false;
+			}
 			return true;
 		}
+		
 		return false;	
 	}
 	
 	public boolean move(Position np, Board board) {
 		
 		if(!isValid(np, board)) {
-			return false;
-		}
-		
-		boolean test = testPosition(this, np, board);
-		if(!test) {
 			return false;
 		}
 		

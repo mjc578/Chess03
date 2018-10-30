@@ -11,10 +11,7 @@ public class Chess {
 		//just an idea, set states based on user input and conditions of game
 		boolean blackTurn = false;
 		boolean whiteTurn = true;
-		boolean drawRequested = false;
-		boolean check = false;
-		boolean checkmate = false;
-		
+		boolean drawRequested = false;		
 		//make the board and print it out
 		Board board = new Board();
 		//populate the board
@@ -27,20 +24,32 @@ public class Chess {
 		String input;
 		
 		while(sc.hasNextLine()) {
-			
 			//get the user's input
 			input = sc.nextLine();
 			String inputs[] = input.split(" ");
 		
 			//resign
 			if(inputs.length == 1) {
-				if(blackTurn) {
-					System.out.println("\nWhite wins");
+				if(inputs[0].equals("resign")) {
+					if(blackTurn) {
+						System.out.println("\nWhite wins");
+					}
+					else {
+						System.out.println("\nBlack wins");
+					}
+					break;
 				}
 				else {
-					System.out.println("\nBlack wins");
+					if(inputs[0].equals("draw")) {
+						if(drawRequested) {
+							break;
+						}
+						else {
+							printIllegal(whiteTurn);
+							continue;
+						}
+					}
 				}
-				break;
 			}
 			
 			char pf1 = inputs[0].charAt(0);
@@ -49,23 +58,11 @@ public class Chess {
 			int pr2 = inputs[1].charAt(1) - '0';
 			
 			if(pf1 < 'a' || pf1 > 'h' || pf2 < 'a' || pf2 > 'h' || pr1 < 1 || pr1 > 8 || pr2 < 1 || pr2 > 8){
-				printIllegal();
-				if(whiteTurn) {
-					System.out.print("White's move: ");
-				}
-				else {
-					System.out.print("Black's move: ");
-				}
+				printIllegal(whiteTurn);
 				continue;
 			}
 			if(pf1 == pf2 && pr1 == pr2) {
-				printIllegal();
-				if(whiteTurn) {
-					System.out.print("White's move: ");
-				}
-				else {
-					System.out.print("Black's move: ");
-				}
+				printIllegal(whiteTurn);
 				continue;
 			}
 			
@@ -73,28 +70,20 @@ public class Chess {
 			Position p2 = new Position(pf2, pr2);
 			
 			if(board.atPosition(p1) == null) {
-				printIllegal();
-				if(whiteTurn) {
-					System.out.print("White's move: ");
-				}
-				else {
-					System.out.print("Black's move: ");
-				}
+				printIllegal(whiteTurn);
 				continue;
 			}
 			
 			//player may only touch their own pieces
 			if(blackTurn) {
 				if(board.atPosition(p1).getColor().equals("white")) {
-					printIllegal();
-					System.out.print("Black's move: ");
+					printIllegal(whiteTurn);
 					continue;
 				}
 			}
 			else {
 				if(board.atPosition(p1).getColor().equals("black")) {
-					printIllegal();
-					System.out.print("White's move: ");
+					printIllegal(whiteTurn);
 					continue;
 				}
 			}
@@ -103,23 +92,52 @@ public class Chess {
 			if(inputs.length == 2) {
 				boolean can = board.atPosition(p1).move(p2, board);
 				if(!can) {
-					printIllegal();
-					if(whiteTurn) {
-						System.out.print("White's move: ");
-					}
-					else {
-						System.out.print("Black's move: ");
-					}
+					printIllegal(whiteTurn);
 					continue;
 				}
 				else {
 					System.out.println("");
 					board.printBoard();
+					drawRequested = false;
 				}
 			}
 			
 			if(inputs.length == 3) {
 				//can be request for draw, can be confirm draw, can be promotion specifier
+				String three = inputs[2];
+				if(three.equals("draw?")) {
+					boolean can = board.atPosition(p1).move(p2, board);
+					if(!can) {
+						printIllegal(whiteTurn);
+						continue;
+					}
+					else {
+						System.out.println("");
+						board.printBoard();
+					}
+					drawRequested = true;
+				}
+				else {
+					//piece must be a pawn for promotion
+					if(!board.atPosition(p1).getName().equals("pawn")) {
+						printIllegal(whiteTurn);
+						continue;
+					}
+					//is pawn
+					else {
+						Pawn p = (Pawn) board.atPosition(p1);
+						boolean can = p.promotionMove(inputs[2], p2, board);
+						if(!can) {
+							printIllegal(whiteTurn);
+							continue;
+						}
+						else {
+							System.out.println("");
+							board.printBoard();
+							drawRequested = false;
+						}
+					}
+				}
 			}
 			
 			if(whiteTurn) {
@@ -134,12 +152,8 @@ public class Chess {
 						System.out.println("\nWhite wins");
 						break;
 					}
-					else {
-						System.out.println("Check");
-					}
+					System.out.println("Check\n");
 				}
-				System.out.println("");
-				System.out.print("Black's move: ");
 				whiteTurn = false;
 				blackTurn = true;
 			}
@@ -153,25 +167,30 @@ public class Chess {
 						System.out.println("\nBlack wins");
 						break;
 					}
-					else {
-						System.out.println("Check\n");
-						
-					}
+					System.out.println("Check\n");
 				}
-				System.out.print("White's move: ");
 				blackTurn = false;
 				whiteTurn = true;
 			}
-			
+			if(whiteTurn) {
+				System.out.print("White's move: ");
+			}
+			else {
+				System.out.print("Blacks's move: ");
+			}			
 			board.maintainPawn();
 		}
 		sc.close();
 	}
 	
-	public static void printIllegal() {
+	public static void printIllegal(boolean whiteTurn) {
 		System.out.println("");
 		System.out.println("Illegal move, try again");
 		System.out.println("");
+		if(whiteTurn) {
+			System.out.print("White's move: ");
+			return;
+		}
+		System.out.print("Black's turn: ");
 	}
-
 }

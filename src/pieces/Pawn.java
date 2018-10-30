@@ -52,18 +52,30 @@ public class Pawn extends Pieces{
 		//white pawns can only move up through the ranks, so each move must have a positive rank2 - rank1
 		if(this.getColor().equals("white")){
 			if(canAttack(np, board)) {
+				boolean test = testPosition(this, np, board);
+				if(!test) {
+					return false;
+				}
 				return true;
 			}
 			//moved up one or two...
 			if(np.getFile() == this.getPosition().getFile()) {
 				//piece moved up two
 				if(np.getRank() - this.getPosition().getRank() == 2 && firstMove == false && board.atPosition(np) == null) {
+					boolean test = testPosition(this, np, board);
+					if(!test) {
+						return false;
+					}
 					firstMove = true;
 					justMovedTwo = true;
 					return true;
 				}
 				//piece moved up one
 				else if(np.getRank() - this.getPosition().getRank() == 1 && board.atPosition(np) == null) {
+					boolean test = testPosition(this, np, board);
+					if(!test) {
+						return false;
+					}
 					justMovedTwo = false;
 					firstMove = true;
 					return true;
@@ -73,15 +85,27 @@ public class Pawn extends Pieces{
 		//pawn is black, may only move down
 		else{
 			if(canAttack(np, board)) {
+				boolean test = testPosition(this, np, board);
+				if(!test) {
+					return false;
+				}
 				return true;
 			}
 			if(np.getFile() == this.getPosition().getFile()) {
 				if(np.getRank() - this.getPosition().getRank() == -2 && firstMove == false && board.atPosition(np) == null) {
+					boolean test = testPosition(this, np, board);
+					if(!test) {
+						return false;
+					}
 					firstMove = true;
 					justMovedTwo = true;
 					return true;
 				}
 				else if(np.getRank() - this.getPosition().getRank() == -1 && board.atPosition(np) == null) {
+					boolean test = testPosition(this, np, board);
+					if(!test) {
+						return false;
+					}
 					justMovedTwo = false;
 					firstMove = true;
 					return true;
@@ -158,12 +182,6 @@ public class Pawn extends Pieces{
 		if(!isValid(np, board)) {
 			return false;
 		}
-		
-		boolean test = testPosition(this, np, board);
-		if(!test) {
-			return false;
-		}
-		
 		
 		board.getBoard()[np.getFile()][np.getRank()] = this;
 		if(np.getRank() == 7 || np.getRank() == 0) {
