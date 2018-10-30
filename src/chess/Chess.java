@@ -194,3 +194,4 @@ public class Chess {
 		System.out.print("Black's turn: ");
 	}
 }
+
