@@ -98,6 +98,10 @@ public class Pawn extends Pieces{
 			return false;
 		}
 		
+		if(isTeammate(np, board)) {
+			return false;
+		}
+		
 		//white pawns can only move up through the ranks, so each move must have a positive rank2 - rank1
 		if(this.getColor().equals("white")){
 			if(canAttack(np, board)) {
@@ -227,10 +231,6 @@ public class Pawn extends Pieces{
 	 */
 	public boolean move(Position np, Board board) {
 		if(!isValid(np, board)) {
-			return false;
-		}
-		
-		if(isTeammate(np, board)) {
 			return false;
 		}
 		

@@ -43,6 +43,10 @@ public class Queen extends Pieces{
 		if(!canMoveThrough(np, board)) {
 			return false;
 		}
+		
+		if(isTeammate(np, board)) {
+			return false;
+		}
 			
 		//queen can move like a bishop and a rook piece
 		if((np.getFile() == this.getPosition().getFile() || np.getRank() == this.getPosition().getRank())
@@ -65,10 +69,6 @@ public class Queen extends Pieces{
 	 */
 	public boolean move(Position np, Board board) {
 		if(!isValid(np, board)) {
-			return false;
-		}
-		
-		if(isTeammate(np, board)) {
 			return false;
 		}
 		

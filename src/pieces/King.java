@@ -46,9 +46,14 @@ public class King extends Pieces{
 			return false;
 		}
 		
+		if(isTeammate(np, board)) {
+			return false;
+		}
+		
 		//king may move one spot in any direction		
 		if(Math.abs(this.getPosition().getFile() - np.getFile()) <= 1 && Math.abs(this.getPosition().getRank() - np.getRank()) <= 1) {
 			//check if new position is under attack
+			
 			if(!Board.isUnderAttack(this, np, board)) {
 				return true;
 			}
@@ -80,10 +85,6 @@ public class King extends Pieces{
 	public boolean move(Position np, Board board) {
 		
 		if(!isValid(np, board)) {
-			return false;
-		}
-		
-		if(isTeammate(np, board)) {
 			return false;
 		}
 		
@@ -210,12 +211,12 @@ public class King extends Pieces{
 							else if(board.getBoard()[k][l] == null || !board.getBoard()[k][l].getColor().equals(p.getColor())) {
 								if(p.getName().equals("pawn")) {
 									Pawn pp = (Pawn) p;
-									if(pp.isValid(board.getBoardPosition(k, l), board)){
+									if(pp.testPosition(pp, board.getBoardPosition(k, l), board)){
 										return false;
 									}
 								}
 								else {
-									if(p.isValid(board.getBoardPosition(k, l), board)) {
+									if(p.testPosition(p, board.getBoardPosition(k, l), board)) {
 										return false;
 									}
 								}

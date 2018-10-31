@@ -41,6 +41,10 @@ public class Bishop extends Pieces{
 			return false;
 		}
 		
+		if(isTeammate(np, board)) {
+			return false;
+		}
+		
 		if(Math.abs(np.getFile() - this.getPosition().getFile()) == Math.abs(np.getRank() - this.getPosition().getRank())) {
 			boolean test = testPosition(this, np, board);
 			if(!test) {
@@ -62,10 +66,6 @@ public class Bishop extends Pieces{
 	public boolean move(Position np, Board board) {
 		
 		if(!isValid(np, board)) {
-			return false;
-		}
-		
-		if(isTeammate(np, board)) {
 			return false;
 		}
 		
