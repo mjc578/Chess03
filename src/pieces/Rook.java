@@ -65,11 +65,6 @@ public class Rook extends Pieces{
 			return false;
 		}
 		
-		//if the desired position has a piece of same color, return false
-		if(isTeammate(np, board)) {
-			return false;
-		}
-		
 		//rook can only move through a file or through a rank
 		if(np.getFile() == this.getPosition().getFile() || np.getRank() == this.getPosition().getRank()) {
 			boolean test = testPosition(this, np, board);
@@ -92,6 +87,10 @@ public class Rook extends Pieces{
 	public boolean move(Position np, Board board) {
 		//if rook tries to make an invalid move, prevent it from moving
 		if(!isValid(np, board)){
+			return false;
+		}
+		
+		if(isTeammate(np, board)) {
 			return false;
 		}
 		

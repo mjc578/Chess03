@@ -45,9 +45,7 @@ public class King extends Pieces{
 		if(!isOutOfBounds(np, board)) {
 			return false;
 		}
-		if(isTeammate(np, board)) {
-			return false;
-		}
+		
 		//king may move one spot in any direction		
 		if(Math.abs(this.getPosition().getFile() - np.getFile()) <= 1 && Math.abs(this.getPosition().getRank() - np.getRank()) <= 1) {
 			//check if new position is under attack
@@ -84,6 +82,11 @@ public class King extends Pieces{
 		if(!isValid(np, board)) {
 			return false;
 		}
+		
+		if(isTeammate(np, board)) {
+			return false;
+		}
+		
 		board.getBoard()[np.getFile()][np.getRank()] = this;
 		board.getBoard()[this.getPosition().getFile()][this.getPosition().getRank()] = null;
 		//update position field

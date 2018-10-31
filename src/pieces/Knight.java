@@ -39,10 +39,6 @@ public class Knight extends Pieces{
 		if(!isOutOfBounds(np, board)) {
 			return false;
 		}
-		
-		if(isTeammate(np, board)) {
-			return false;
-		}
 				
 		if (Math.abs(np.getFile() - this.getPosition().getFile()) == 2 && Math.abs(np.getRank() - this.getPosition().getRank()) == 1 
 			|| Math.abs(np.getFile() - this.getPosition().getFile()) == 1 && Math.abs(np.getRank() - this.getPosition().getRank()) == 2){
@@ -67,6 +63,10 @@ public class Knight extends Pieces{
 	public boolean move(Position np, Board board) {
 		
 		if(!isValid(np, board)) {
+			return false;
+		}
+		
+		if(isTeammate(np, board)) {
 			return false;
 		}
 		
