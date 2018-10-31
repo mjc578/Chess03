@@ -254,14 +254,7 @@ public class Board {
 		}
 	}
 	
-	/**
-	 * Method to detect a stalemate with respect to the color passed in. Checks if all pieces of the
-	 * passed in color have legal moves. This method is only called if the player of the current color 
-	 * does not have their king in check.
-	 * 
-	 * @param color Used to check all piece's of a color to see if they have any legal moves
-	 * @return true if stalemate is detected
-	 */
+	/*
 	public boolean isStalemate(String color) {
 		for(int i = 0; i < 8; i++) {
 			for(int j = 0; j < 8; j++) {
@@ -279,4 +272,5 @@ public class Board {
 		}
 		return true;
 	}
+	*/
 }

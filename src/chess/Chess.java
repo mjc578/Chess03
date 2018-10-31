@@ -161,12 +161,14 @@ public class Chess {
 					}
 					System.out.println("Check\n");
 				}
+				/*
 				else {
 					if(board.isStalemate("black")){
 						System.out.println("Stalemate");
 						break;
 					}
 				}
+				*/
 				whiteTurn = false;
 				blackTurn = true;
 			}
@@ -182,12 +184,14 @@ public class Chess {
 					}
 					System.out.println("Check\n");
 				}
+				/*
 				else {
 					if(board.isStalemate("white")){
 						System.out.println("Stalemate");
 						break;
 					}
 				}
+				*/
 				blackTurn = false;
 				whiteTurn = true;
 			}
