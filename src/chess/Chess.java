@@ -1,3 +1,10 @@
+/**
+ * Class to host the strategic playings of the Chess
+ * 
+ * @author Michael Chapman
+ * @author Krishna Mistry
+ */
+
 package chess;
 
 import java.util.Scanner;
@@ -11,7 +18,7 @@ public class Chess {
 		//just an idea, set states based on user input and conditions of game
 		boolean blackTurn = false;
 		boolean whiteTurn = true;
-		boolean drawRequested = false;		
+		boolean drawRequested = false;
 		//make the board and print it out
 		Board board = new Board();
 		//populate the board
@@ -154,6 +161,14 @@ public class Chess {
 					}
 					System.out.println("Check\n");
 				}
+				/*
+				else {
+					if(board.isStalemate("black")){
+						System.out.println("Stalemate");
+						break;
+					}
+				}
+				*/
 				whiteTurn = false;
 				blackTurn = true;
 			}
@@ -169,6 +184,14 @@ public class Chess {
 					}
 					System.out.println("Check\n");
 				}
+				/*
+				else {
+					if(board.isStalemate("white")){
+						System.out.println("Stalemate");
+						break;
+					}
+				}
+				*/
 				blackTurn = false;
 				whiteTurn = true;
 			}
@@ -183,6 +206,10 @@ public class Chess {
 		sc.close();
 	}
 	
+	/**
+	 * Method to print the repetitive "Illegal move, try again" prompt
+	 * @param whiteTurn Prints out who's turn it is depending on boolean
+	 */
 	public static void printIllegal(boolean whiteTurn) {
 		System.out.println("");
 		System.out.println("Illegal move, try again");

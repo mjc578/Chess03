@@ -1,31 +1,72 @@
+/**
+ * Representation of a position on the chess board.
+ * 
+ * @author Michael Chapman
+ * @author Krishna Mistry
+ * 
+ */
+
 package pieces;
 
 public class Position {
 	
+	/**
+	 * File int field for position file (converted from char).
+	 * Rank int field for position rank.
+	 */
 	private int file;
 	private int rank;
 
+	/**
+	 * Constructor to create an instance of a position.
+	 * Subtraction by one from both fields to account for array representation of Chess board.
+	 * 
+	 * @param file field for position file
+	 * @param rank field for position rank
+	 */
 	public Position(char file, int rank) {
 		this.file = fromChar(file) - 1;
 		this.rank = rank - 1;
 	}
 	
+	/**
+	 * Returns file field.
+	 * @return file field
+	 */
 	public int getFile() {
 		return file;
 	}
 	
+	/**
+	 * Returns rank field.
+	 * @return rank field
+	 */
 	public int getRank() {
 		return rank;
 	}
 	
+	/**
+	 * Sets file field.
+	 * @param file char for file
+	 */
 	public void setFile(char file) {
 		this.file = fromChar(file);
 	}
 	
+	/**
+	 * Sets rank field.
+	 * @param rank int for rank
+	 */
 	public void setRank(int rank) {
 		this.rank = rank;
 	}
 	
+	/**
+	 * Converts a character to corresponding numerical value.
+	 * 
+	 * @param c Character entered
+	 * @return int representation of char
+	 */
 	public static int fromChar(char c) {
 		switch(c) {
 		
@@ -42,6 +83,12 @@ public class Position {
 		}
 	}
 	
+	/**
+	 * Converts an integer to corresponding character.
+	 * 
+	 * @param c Integer entered
+	 * @return char representation of num
+	 */
 	public static char toChar(int c) {
 		switch(c) {
 		
@@ -56,14 +103,6 @@ public class Position {
 		default: return 0;
 		
 		}
-	}
-	
-	public boolean equals(Object o) {
-		if(o == null || !(o instanceof Position)){
-			return false;
-		}
-		Position p = (Position) o;
-		return file == p.file && rank ==  p.rank;
 	}
 	
 }

@@ -1,37 +1,80 @@
+/**
+ * Abstract class to represent the common Methods and fields of a Chess piece
+ * Purposefully abstract as this class should never be instantiated.
+ * 
+ * @author Michael Chapman
+ * @author Krishna Mistry
+ */
+
 package pieces;
 
 import board.Board;
 
 public abstract class Pieces{
 	
+	/**
+	 * String field for piece's name, final as we do not want it changed.
+	 * String field for piece' color, final as it will not change.
+	 * Position field for piece's current position.
+	 */
 	final private String name;
 	final private String color;
 	private Position currentPosition;
 	
+	/**
+	 * Constructor to be used by Pieces subclasses to initialize common fields.
+	 * 
+	 * @param name The piece's name
+	 * @param color The piece's color
+	 * @param currentPosition The piece's current chess board position
+	 */
 	public Pieces(String name, String color, Position currentPosition) {
 		this.name = name;
 		this.color = color;
 		this.currentPosition = currentPosition;
 	}
 	
+	/**
+	 * Method to get piece's name.
+	 * @return name 
+	 */
 	public String getName() {
 		return name;
 	}
 	
+	/**
+	 * Method to get piece's current position.
+	 * @return currentPosition
+	 */
 	public Position getPosition() {
 		return currentPosition;
 	}
 	
+	/**
+	 * Method to get piece's color.
+	 * @return color
+	 */
 	public String getColor() {
 		return color;
 	}
 	
+	/** Method to set piece's current position when it changes places.
+	 * 
+	 * @param c for the file
+	 * @param r for the rank
+	 */
 	public void setPosition(char c, int r) {
 		currentPosition.setFile(c);
 		currentPosition.setRank(r);
 	}
 	
-	//checks if piece is leaving confines of the board
+	/**
+	 * Checks if piece is leaving confines of the board.
+	 * 
+	 * @param np new position
+	 * @param board Current board
+	 * @return true if in bounds
+	 */
 	public boolean isOutOfBounds(Position np, Board board) {
 		if(np.getFile() < 8 && np.getFile() >= 0 && np.getRank() < 8 && np.getRank() >= 0) {
 			return true;
@@ -39,13 +82,34 @@ public abstract class Pieces{
 		return false;
 	}
 	
-	public abstract boolean isValid(Position p, Board board);
+	/**
+	 * Abstract method that depends on the piece. Each piece has their own method of
+	 * moving and this method checks if their projected move is valid.
+	 * 
+	 * @param np new position
+	 * @param board Current board
+	 * @return returns true if can make valid move to position
+	 */
+	public abstract boolean isValid(Position np, Board board);
 	
-	//should test if actually moving will put king in/out of check
+	/**
+	 * Moves piece from current position to new position.
+	 * 
+	 * @param np new position
+	 * @param board Current board
+	 * @return true if move is successful
+	 */
 	public abstract boolean move(Position np, Board board);
 	
-	//returns true if positions between the current piece's position and its desired position are empty, false otherwise
-	//returns true for knight piece as it can jump over anything
+	/**
+	 * Method that returns true if positions between the current piece's position and its desired 
+	 * position are empty, false otherwise.
+	 * Returns true for knight piece as it can jump over anything.
+	 * 
+	 * @param np New position
+	 * @param board Current board
+	 * @return true if piece may move through the positions
+	 */
 	public boolean canMoveThrough(Position np, Board board) {
 		int pf1 = currentPosition.getFile(); int pr1 = currentPosition.getRank();
 		int pf2 = np.getFile(); int pr2 = np.getRank();
@@ -155,7 +219,13 @@ public abstract class Pieces{
 		return true;
 	}
 
-	//returns false if the destination spot has a teammate, as a piece cannot take a teammate
+	/**
+	 * Method that returns false if the destination spot has a teammate, as a piece may not take a teammate.
+	 * 
+	 * @param np new position to check
+	 * @param board Current board
+	 * @return true if position is enemy piece or empty
+	 */
 	public boolean isTeammate(Position np, Board board) {
 		if(board.atPosition(np) == null) {
 			return false;
@@ -166,12 +236,23 @@ public abstract class Pieces{
 		return false;
 	}
 	
-	@Override
+	/**
+	 * toString method override from object class.
+	 * Prints out the first letter of the class's color and 
+	 * then first letter of name (which is why Knight's name is Night).
+	 */
 	public String toString() {
 		return "" + color.charAt(0) + name.charAt(0);
 	}
 	
-	//tests if a move puts king into check
+	/**
+	 * Method that tests if a move puts king into check with a dummy board.
+	 * 
+	 * @param piece piece that is making move
+	 * @param np position piece wants to move to
+	 * @param board Current board
+	 * @return true if position does not put king into check
+	 */
 	public boolean testPosition(Pieces piece, Position np, Board board) {
 		Board temp = new Board();
 		for(int i = 0; i < 8; i++) {

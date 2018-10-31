@@ -1,38 +1,92 @@
+/**
+ * Representation for the lowly pawn piece on the Chess board.
+ * The pawn piece may only move forward one position at a time.
+ * On its first move, it may move two positions, but it does not have to.
+ * Pawn may only attack diagonally and it can execute an en passant if an enemy pawn had just moved to 
+ * its right or left file on the same rank.
+ * Pawn may also promote to any piece except King or pawn upon reaching its final rank.
+ * 
+ * @author Michael Chapman
+ * @author Krishna Mistry
+ */
+
 package pieces;
 
 import board.Board;
 
 public class Pawn extends Pieces{
 	
+	/**
+	 * firstMove boolean to track if pawn has made its first move or not, for purposes of two jump move.
+	 * justMovedTwo boolean to track if pawn just jumped two spaces, for en passant.
+	 * count int to for the pawn maintenance method.
+	 */
 	private boolean firstMove = false;
 	private boolean justMovedTwo = false;
 	private int count = 0;
 
+	/**
+	 * Constructor for creating a pawn instance.
+	 * 
+	 * @param name Name is "pawn"
+	 * @param color Either "black" or "white"
+	 * @param currentPosition Current position on the board
+	 * 
+	 */
 	public Pawn(String name, String color, Position currentPosition) {
 		super(name, color, currentPosition);
 	}
 	
+	/**
+	 * Returns firstMove private field.
+	 * @return firstMove boolean field
+	 * 
+	 */
 	public boolean getFirstMove() {
 		return firstMove;
 	}
 	
+	/**
+	 * Return justMovedTwo private field.
+	 * @return justMovedTwo boolean field
+	 * 
+	 */
 	public boolean getJustMovedTwo() {
 		return justMovedTwo;
 	}
 	
+	/**
+	 * Sets the JustMovedTwo boolean. 
+	 * @param justMovedTwo true or false
+	 * 
+	 */
 	public void setJustMovedTwo(boolean justMovedTwo) {
 		this.justMovedTwo = justMovedTwo;
 	}
 	
+	/**
+	 * Returns count field.
+	 * @return count int field
+	 */
 	public int getCount() {
 		return count;
 	}
 	
+	/**
+	 * Sets count field.
+	 * @param count Passed any number but 0
+	 */
 	public void setCount(int count) {
 		this.count = count;
 	}
 
-	@Override
+	/**
+	 * Method to check if piece can hypothetically move to given position.
+	 * 
+	 * @param np Position to test if can move to
+	 * @param board Current board
+	 * @return true if piece can hypothetically move to new space
+	 */
 	public boolean isValid(Position np, Board board) {		
 		//move must remain in confines of the board, does not depend on color
 		if(!isOutOfBounds(np, board)) {
@@ -107,7 +161,13 @@ public class Pawn extends Pieces{
 		return false;
 	}
 	
-	//this is a pawn specific method, since it attacks weird
+	/**
+	 * Tests if pawn can attack the position desired or if the new position results in an en passant.
+	 * 
+	 * @param np New position to test
+	 * @param board Current board
+	 * @return true if pawn can attack or en passant
+	 */
 	public boolean canAttack(Position np, Board board) {
 		//we already checked if the destination spot has a teammate so this spot, if occupied, is guaranteed to have an enemy piece
 		//therefore, this is an attempted capture
@@ -161,6 +221,15 @@ public class Pawn extends Pieces{
 		return false;
 	}
 	
+	/**
+	 * Moves the pawn piece to new space. Also includes auto promotion to Queen 
+	 * if no promotion piece specified and pawn lands on its last rank.
+	 * 
+	 * @param np New Position to move to
+	 * @param board Current board
+	 * @return true if move successful
+	 * 
+	 */
 	public boolean move(Position np, Board board) {
 		if(!isValid(np, board)) {
 			return false;
@@ -186,6 +255,15 @@ public class Pawn extends Pieces{
 		return true;
 	}
 	
+	/**
+	 * If the player specified a piece to promote to, this method will replace current pawn
+	 * with the piece that they specified.
+	 * 
+	 * @param promotion Letter of piece player wants to promote to
+	 * @param np New position to move to
+	 * @param board Current board
+	 * @return true if move and promotion successful
+	 */
 	public boolean promotionMove(String promotion, Position np, Board board) {
 		
 		if(np.getRank() != 7 && np.getRank() != 0) {

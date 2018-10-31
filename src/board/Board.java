@@ -1,3 +1,11 @@
+/**
+ * Representation of the chess board
+ * Represented by an 8x8 array
+ * 
+ * @author Michael Chapman
+ * @author Krishna Mistry
+ */
+
 package board;
 
 import pieces.Bishop;
@@ -11,17 +19,32 @@ import pieces.Rook;
 
 public class Board {
 
+	/**
+	 * Pieces 2-D array field that represents the Chess board
+	 */
 	private Pieces[][] board; 
 	
+	/**
+	 * Constructor to create an instance of the board. Creates an 8x8 array for the chess board
+	 */
 	public Board() {
 		this.board = new Pieces[8][8];
 	}
 	
+	/**
+	 * Method to return the chess board
+	 * @return board
+	 */
 	public Pieces[][] getBoard() {
 		return board;
 	}
 			
-	//returns the piece that is at the position on the board specified
+	/**
+	 * Method to get the piece that is at the position on the board specified.
+	 * 
+	 * @param p Position specified
+	 * @return Pieces piece at position parameter
+	 */
 	public Pieces atPosition(Position p) {
 		int file = p.getFile();
 		int rank = p.getRank();
@@ -33,7 +56,9 @@ public class Board {
 		}
 	}
 	
-	//populates board with pieces at starting positions
+	/**
+	 * Method to populate board with pieces at their correct starting positions.
+	 */
 	public void populate() {
 		board[0][7] = new Rook("Rook", "black", new Position('a', 8));
 		board[1][7] = new Knight("Night", "black", new Position('b', 8));
@@ -64,7 +89,9 @@ public class Board {
 		}
 	}
 	
-	//method prints out the chess board
+	/**
+	 * Method which prints out the chess board.
+	 */
 	public void printBoard() {
 
 		for(int j = board.length - 1; j >= -1; j--) {
@@ -108,6 +135,11 @@ public class Board {
 		}
 	}
 
+	/**
+	 * Method to maintain all the pawn pieces and their justMovedTwo fields.
+	 * This is necessary to execute after every time a player makes a move
+	 * to turn off justMovedTwo fields after the opponent's turn if the pawn has just moved two up.
+	 */
 	public void maintainPawn() {
 		for (int i = 0; i<8; i++) {
 			for (int j = 0; j<8; j++) {
@@ -126,10 +158,17 @@ public class Board {
 		}
 	}	
 
-	//checks if position is under attack with respect to the color of player calling it, important since can not have king under attack
+	/**
+	 * Checks if position is under attack by opponent of the player calling this method.
+	 * Method mostly for checking if the King is in check.
+	 * 
+	 * @param piece Player's piece to refer to color to know who is opponent
+	 * @param p Position to test if under attack
+	 * @param board Current board
+	 * @return true if the position is under attack
+	 */
 	public static boolean isUnderAttack(Pieces piece, Position p, Board board) {
 		
-		//fix this by putting a temp in the spot of interest, so pawns can test it, make it disappear after test
 		Board temp = new Board();
 		for(int i = 0; i < 8; i++) {
 			for(int j = 0; j < 8; j++) {
@@ -178,7 +217,13 @@ public class Board {
 		return false;
 	}
 
-	//gets position of king of same color of piece calling this methodical method
+	/** 
+	 * Gets position of king of same color as piece calling this methodical method.
+	 * 
+	 * @param color To refer to to get correct king
+	 * @param board Current board
+	 * @return Position of the King of interest
+	 */
 	public Position getPositionKing(String color, Board board) {
 		Position p = null;
 		for(int i = 0; i < 8; i++) {
@@ -193,6 +238,13 @@ public class Board {
 		return p;
 	}
 	
+	/**
+	 * Returns position corresponding to file and rank parameters.
+	 * 
+	 * @param file File for position
+	 * @param rank Rank for position
+	 * @return Position specified by file and rank
+	 */
 	public Position getBoardPosition(int file, int rank) {
 		if(board[file][rank] == null) {
 			return new Position(Position.toChar(file + 1), rank + 1);
@@ -201,4 +253,24 @@ public class Board {
 			return board[file][rank].getPosition();
 		}
 	}
+	
+	/*
+	public boolean isStalemate(String color) {
+		for(int i = 0; i < 8; i++) {
+			for(int j = 0; j < 8; j++) {
+				if(board[i][j] != null && board[i][j].getColor().equals(color)) {
+					Pieces p = board[i][j];
+					for(int k = 0; k < 8; k++) {
+						for(int l = 0; l < 8; l++) {
+							if(p.isValid(getBoardPosition(k, l), this)) {
+								return false;
+							}
+						}
+					}
+				}
+			}
+		}
+		return true;
+	}
+	*/
 }
