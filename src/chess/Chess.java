@@ -76,6 +76,11 @@ public class Chess {
 			Position p1 = new Position(pf1, pr1);
 			Position p2 = new Position(pf2, pr2);
 			
+			if(board.atPosition(p2) != null && board.atPosition(p2).getName().equals("King")) {
+				printIllegal(whiteTurn);
+				continue;
+			}
+			
 			if(board.atPosition(p1) == null) {
 				printIllegal(whiteTurn);
 				continue;
@@ -161,14 +166,12 @@ public class Chess {
 					}
 					System.out.println("Check\n");
 				}
-				/*
 				else {
 					if(board.isStalemate("black")){
 						System.out.println("Stalemate");
 						break;
 					}
 				}
-				*/
 				whiteTurn = false;
 				blackTurn = true;
 			}
@@ -184,14 +187,12 @@ public class Chess {
 					}
 					System.out.println("Check\n");
 				}
-				/*
 				else {
 					if(board.isStalemate("white")){
 						System.out.println("Stalemate");
 						break;
 					}
 				}
-				*/
 				blackTurn = false;
 				whiteTurn = true;
 			}

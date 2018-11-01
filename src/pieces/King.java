@@ -53,7 +53,10 @@ public class King extends Pieces{
 		//king may move one spot in any direction		
 		if(Math.abs(this.getPosition().getFile() - np.getFile()) <= 1 && Math.abs(this.getPosition().getRank() - np.getRank()) <= 1) {
 			//check if new position is under attack
-			
+			boolean test = testKing(np, board);
+			if(!test) { 
+				return false;
+			}
 			if(!Board.isUnderAttack(this, np, board)) {
 				return true;
 			}
@@ -191,7 +194,7 @@ public class King extends Pieces{
 	}
 	
 	/**
-	* Sees if player is in checkmate by testing all players oieces if they can make any valid moves which
+	* Sees if player is in checkmate by testing all players pieces if they can make any valid moves which
 	* place king out of check, returns true if none can.
 	*
 	*@param board Current board
@@ -211,12 +214,12 @@ public class King extends Pieces{
 							else if(board.getBoard()[k][l] == null || !board.getBoard()[k][l].getColor().equals(p.getColor())) {
 								if(p.getName().equals("pawn")) {
 									Pawn pp = (Pawn) p;
-									if(pp.testPosition(pp, board.getBoardPosition(k, l), board)){
+									if(pp.isValid(board.getBoardPosition(k, l), board)){
 										return false;
 									}
 								}
 								else {
-									if(p.testPosition(p, board.getBoardPosition(k, l), board)) {
+									if(p.isValid(board.getBoardPosition(k, l), board)) {
 										return false;
 									}
 								}
@@ -225,6 +228,30 @@ public class King extends Pieces{
 					}
 				}
 			}
+		}
+		return true;
+	}
+	
+	/**
+	 * Method to test if the king may move to the desired position without putting itself in check.
+	 * 
+	 * @param np Position to move to and test
+	 * @param board Current board
+	 * @return true if position does not put King into check
+	 */
+	public boolean testKing(Position np, Board board) {
+		Board temp = new Board();
+		for(int i = 0; i < 8; i++) {
+			for(int j = 0; j < 8; j++) {
+				temp.getBoard()[i][j] = board.getBoard()[i][j];
+			}
+		}
+		
+		King tempKing = new King(this.getName(), this.getColor(), np);
+		temp.getBoard()[np.getFile()][np.getRank()] = tempKing;
+		temp.getBoard()[this.getPosition().getFile()][this.getPosition().getRank()] = null;
+		if(tempKing.isInCheck(temp)) {
+			return false;
 		}
 		return true;
 	}
